@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */; };
+		48A891701D37B0A30010A609 /* OvTijdCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A8916F1D37B0A30010A609 /* OvTijdCore.framework */; };
 		48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F891D2FF4FC00E6365A /* AppDelegate.swift */; };
-		48B79F8C1D2FF4FC00E6365A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F8B1D2FF4FC00E6365A /* ViewController.swift */; };
 		48B79F8F1D2FF4FC00E6365A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F8D1D2FF4FC00E6365A /* Main.storyboard */; };
 		48B79F911D2FF4FC00E6365A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F901D2FF4FC00E6365A /* Assets.xcassets */; };
 		48B79F941D2FF4FC00E6365A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */; };
+		48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaTableViewCell.swift; sourceTree = "<group>"; };
+		48A8916F1D37B0A30010A609 /* OvTijdCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OvTijdCore.framework; path = "../../Library/Developer/Xcode/DerivedData/OvTijdWorkspace-filnlyslhioimpeybfcwhomrdtui/Build/Products/Debug-iphoneos/OvTijdCore.framework"; sourceTree = "<group>"; };
 		48B79F861D2FF4FC00E6365A /* OvTijd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvTijd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48B79F891D2FF4FC00E6365A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		48B79F8B1D2FF4FC00E6365A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		48B79F8E1D2FF4FC00E6365A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		48B79F901D2FF4FC00E6365A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48B79F931D2FF4FC00E6365A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48B79F951D2FF4FC00E6365A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsOverviewTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48A891701D37B0A30010A609 /* OvTijdCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +43,7 @@
 		48B79F7D1D2FF4FC00E6365A = {
 			isa = PBXGroup;
 			children = (
+				48A8916F1D37B0A30010A609 /* OvTijdCore.framework */,
 				48B79F881D2FF4FC00E6365A /* OvTijd */,
 				48B79F871D2FF4FC00E6365A /* Products */,
 			);
@@ -54,14 +60,23 @@
 		48B79F881D2FF4FC00E6365A /* OvTijd */ = {
 			isa = PBXGroup;
 			children = (
-				48B79F891D2FF4FC00E6365A /* AppDelegate.swift */,
-				48B79F8B1D2FF4FC00E6365A /* ViewController.swift */,
+				48B79F9B1D2FF53A00E6365A /* Supporting Files */,
 				48B79F8D1D2FF4FC00E6365A /* Main.storyboard */,
-				48B79F901D2FF4FC00E6365A /* Assets.xcassets */,
-				48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */,
+				48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */,
 				48B79F951D2FF4FC00E6365A /* Info.plist */,
+				48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */,
 			);
 			path = OvTijd;
+			sourceTree = "<group>";
+		};
+		48B79F9B1D2FF53A00E6365A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				48B79F891D2FF4FC00E6365A /* AppDelegate.swift */,
+				48B79F901D2FF4FC00E6365A /* Assets.xcassets */,
+				48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48B79F8C1D2FF4FC00E6365A /* ViewController.swift in Sources */,
+				48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */,
+				48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */,
 				48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OvTijd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.stegman.OvTijd;
@@ -261,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = OvTijd/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.stegman.OvTijd;
@@ -287,6 +305,7 @@
 				48B79F9A1D2FF4FC00E6365A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
