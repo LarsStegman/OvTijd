@@ -11,7 +11,19 @@ import UIKit
 class StopAreaTableViewCell: UITableViewCell {
 
     @IBOutlet weak var stopAreaName: UILabel!
-    
+    @IBOutlet weak var stopAreaTown: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+
+    var distance: Double? = Double.infinity {
+        didSet {
+            if let d = distance {
+                distanceLabel.text = "\(Int(d))m"
+            } else {
+                distanceLabel.text = " "
+            }
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

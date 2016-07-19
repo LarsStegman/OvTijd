@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fno-TJ-7IL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YZA-FV-I4A">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -10,44 +10,52 @@
         <scene sceneID="BYa-8q-Xix">
             <objects>
                 <tableViewController id="fno-TJ-7IL" customClass="StopsOverviewTableViewController" customModule="OvTijd" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Rk-Ma-cS9">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="84" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Rk-Ma-cS9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StopAreaCell" rowHeight="100" id="aL0-mT-5YL" customClass="StopAreaTableViewCell" customModule="OvTijd" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="50" width="600" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StopAreaCell" rowHeight="84" id="aL0-mT-5YL" customClass="StopAreaTableViewCell" customModule="OvTijd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="114" width="600" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aL0-mT-5YL" id="ljf-AJ-ogp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StopAreaName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ade-4R-Qbp">
-                                            <rect key="frame" x="8" y="8" width="115" height="83"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q9H-e4-wgL">
-                                            <rect key="frame" x="8" y="70" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="98F-8Z-B8X">
+                                            <rect key="frame" x="8" y="8" width="115" height="67"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StopAreaName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ade-4R-Qbp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="115" height="28"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Town" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJT-1W-T0H">
+                                                    <rect key="frame" x="0.0" y="28" width="28" height="19"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="56o-Qi-iIE">
+                                                    <rect key="frame" x="0.0" y="47" width="46" height="20"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Ade-4R-Qbp" firstAttribute="leading" secondItem="ljf-AJ-ogp" secondAttribute="leadingMargin" id="1bd-P3-bCV"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Ade-4R-Qbp" secondAttribute="bottom" id="Uh7-mr-bCh"/>
-                                        <constraint firstItem="Ade-4R-Qbp" firstAttribute="top" secondItem="ljf-AJ-ogp" secondAttribute="topMargin" id="gMc-3w-KQB"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="98F-8Z-B8X" secondAttribute="leading" id="M0L-2m-e1Y"/>
+                                        <constraint firstAttribute="topMargin" secondItem="98F-8Z-B8X" secondAttribute="top" id="ZwO-u5-EYW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="98F-8Z-B8X" secondAttribute="bottom" id="cdK-Jh-um1"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="subviews">
-                                            <exclude reference="q9H-e4-wgL"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="distanceLabel" destination="56o-Qi-iIE" id="qsq-WO-54S"/>
                                     <outlet property="stopAreaName" destination="Ade-4R-Qbp" id="Cd6-V9-PCe"/>
+                                    <outlet property="stopAreaTown" destination="QJT-1W-T0H" id="VUM-Vb-ESi"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -56,8 +64,27 @@
                             <outlet property="delegate" destination="fno-TJ-7IL" id="6Ta-N3-XSX"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="gjf-p9-kIN"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y4-ML-BZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1294" y="435"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="xU7-kp-btT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YZA-FV-I4A" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cFd-8g-kvq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fno-TJ-7IL" kind="relationship" relationship="rootViewController" id="Js9-N3-vNx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yx2-F4-ehd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="482" y="435"/>
         </scene>

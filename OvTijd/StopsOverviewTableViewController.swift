@@ -8,25 +8,59 @@
 
 import UIKit
 import OvTijdCore
+import CoreLocation
 
-class StopsOverviewTableViewController: UITableViewController {
+class StopsOverviewTableViewController: UITableViewController, OVTLocationManagerDelegate {
 
     private struct Constants {
         static let Nearby = "Nearby"
         static let StopAreaCellId = "StopAreaCell"
         static let SectionTitles = [Constants.Nearby]
+        static let distanceFilter = 100.0
     }
 
-    let manager = OvTijdManager()
+    let manager = OVTManager()
+    let locationManager = OVTLocationManager.sharedInstance
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("View will appear")
-        manager.nearbyStopAreas { [weak self] stopAreas in
-            dispatch_async(dispatch_get_main_queue()) {
-                self?.stopAreas[Constants.Nearby] = stopAreas
+        locationManager.startUpdatingLocations(forDelegate: self)
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        locationManager.stopUpdateLocations(forDelegate: self)
+    }
+
+    // MARK: - Location Managing
+
+    var location: CLLocation? {
+        didSet {
+            if let newLocation = location {
+                manager.stopAreas(newLocation) {
+                    [weak self] (stopAreas: [StopArea]) in
+                    if newLocation == self?.location { // Location might have changed already
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self?.stopAreas[Constants.Nearby] = stopAreas
+                        }
+                    }
+                }
             }
         }
+    }
+
+    func update(location: CLLocation) {
+        self.location = location
+    }
+
+    func fail(with: OVTError) {
+        // Nothing yet
     }
 
     // MARK: - Table view data source
@@ -62,55 +96,10 @@ class StopsOverviewTableViewController: UITableViewController {
 
         let stopArea = stopAreasInSection[indexPath.row]
         stopAreaCell.stopAreaName.text = stopArea.name
-        // Configure the cell...
+        stopAreaCell.stopAreaTown.text = stopArea.town
+        stopAreaCell.distance = self.location?.distanceFromLocation(stopArea.location)
 
         return stopAreaCell
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

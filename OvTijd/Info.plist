@@ -36,5 +36,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We gebruiken je locatie om de dichtsbijzijnde haltes op te zoeken.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We gebruiken je locatie op de achtergrond om de Apple Watch complicaties up te daten.</string>
 </dict>
 </plist>
