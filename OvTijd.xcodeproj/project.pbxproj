@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		48568BA21D3E35BF005C97CC /* OvTijdCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48568BA11D3E35BF005C97CC /* OvTijdCore.framework */; };
 		48568BAA1D3E4BEC005C97CC /* UpcomingPassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48568BA91D3E4BEC005C97CC /* UpcomingPassView.swift */; };
 		48568BAC1D3E4C05005C97CC /* UpcomingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48568BAB1D3E4C05005C97CC /* UpcomingPassView.xib */; };
 		48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */; };
@@ -16,10 +15,10 @@
 		48B79F911D2FF4FC00E6365A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F901D2FF4FC00E6365A /* Assets.xcassets */; };
 		48B79F941D2FF4FC00E6365A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */; };
 		48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */; };
+		48C365311D3FBA2E00827C88 /* OvTijdCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C365301D3FBA2E00827C88 /* OvTijdCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		48568BA11D3E35BF005C97CC /* OvTijdCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OvTijdCore.framework; path = "../../Library/Developer/Xcode/DerivedData/OvTijdWorkspace-filnlyslhioimpeybfcwhomrdtui/Build/Products/Debug-iphoneos/OvTijdCore.framework"; sourceTree = "<group>"; };
 		48568BA91D3E4BEC005C97CC /* UpcomingPassView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingPassView.swift; sourceTree = "<group>"; };
 		48568BAB1D3E4C05005C97CC /* UpcomingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpcomingPassView.xib; sourceTree = "<group>"; };
 		48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaTableViewCell.swift; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		48B79F931D2FF4FC00E6365A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48B79F951D2FF4FC00E6365A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsOverviewTableViewController.swift; sourceTree = "<group>"; };
+		48C365301D3FBA2E00827C88 /* OvTijdCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OvTijdCore.framework; path = "../../../Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphoneos/OvTijdCore.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48568BA21D3E35BF005C97CC /* OvTijdCore.framework in Frameworks */,
+				48C365311D3FBA2E00827C88 /* OvTijdCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,8 +47,8 @@
 		48B79F7D1D2FF4FC00E6365A = {
 			isa = PBXGroup;
 			children = (
-				48568BA11D3E35BF005C97CC /* OvTijdCore.framework */,
-				48B79F881D2FF4FC00E6365A /* OvTijd */,
+				48C365301D3FBA2E00827C88 /* OvTijdCore.framework */,
+				48B79F881D2FF4FC00E6365A /* Source */,
 				48B79F871D2FF4FC00E6365A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,7 +61,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		48B79F881D2FF4FC00E6365A /* OvTijd */ = {
+		48B79F881D2FF4FC00E6365A /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				48B79F9B1D2FF53A00E6365A /* Supporting Files */,
@@ -72,6 +72,7 @@
 				48568BA91D3E4BEC005C97CC /* UpcomingPassView.swift */,
 				48568BAB1D3E4C05005C97CC /* UpcomingPassView.xib */,
 			);
+			name = Source;
 			path = OvTijd;
 			sourceTree = "<group>";
 		};

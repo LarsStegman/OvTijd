@@ -45,17 +45,26 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="dke-3b-fFq">
+                                            <rect key="frame" x="131" y="8" width="461" height="67"/>
+                                            <color key="backgroundColor" red="0.56057690390000003" green="0.2459376305" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="topMargin" secondItem="dke-3b-fFq" secondAttribute="top" id="0kP-4O-0TL"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="98F-8Z-B8X" secondAttribute="leading" id="M0L-2m-e1Y"/>
                                         <constraint firstAttribute="topMargin" secondItem="98F-8Z-B8X" secondAttribute="top" id="ZwO-u5-EYW"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="98F-8Z-B8X" secondAttribute="bottom" id="cdK-Jh-um1"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dke-3b-fFq" secondAttribute="bottom" id="mrn-Sa-ERe"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dke-3b-fFq" secondAttribute="trailing" id="tOw-Jj-rZc"/>
+                                        <constraint firstItem="dke-3b-fFq" firstAttribute="leading" secondItem="98F-8Z-B8X" secondAttribute="trailing" constant="8" symbolic="YES" id="ykQ-sm-j27"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="distanceLabel" destination="56o-Qi-iIE" id="qsq-WO-54S"/>
                                     <outlet property="stopAreaName" destination="Ade-4R-Qbp" id="Cd6-V9-PCe"/>
                                     <outlet property="stopAreaTown" destination="QJT-1W-T0H" id="VUM-Vb-ESi"/>
+                                    <outlet property="upcomingPassesStackView" destination="dke-3b-fFq" id="ep5-vQ-aIv"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

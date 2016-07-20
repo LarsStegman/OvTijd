@@ -14,6 +14,8 @@ class StopAreaTableViewCell: UITableViewCell {
     @IBOutlet weak var stopAreaTown: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
 
+    @IBOutlet weak var upcomingPassesStackView: UIStackView!
+    
     var distance: Double? = Double.infinity {
         didSet {
             if let d = distance {
