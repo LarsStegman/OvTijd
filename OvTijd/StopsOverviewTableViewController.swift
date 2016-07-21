@@ -38,6 +38,15 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
         locationManager.stopUpdateLocations(forDelegate: self)
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let stopAreaDetailVC = segue.destinationViewController as? StopAreaDetailViewController,
+            let selectedCellIndex = tableView.indexPathForSelectedRow
+        {
+            let stopArea = dataFor(selectedCellIndex)
+            stopAreaDetailVC.title = stopArea.name
+        }
+    }
+
     // MARK: - Location Managing
 
     var location: CLLocation? {
@@ -70,6 +79,7 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
 	*/
     var stopAreas = [String: [StopArea]]() {
 		didSet {
+            print("Did set stop areas")
 			tableView.reloadData()
 		}
 	}
@@ -91,15 +101,19 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
         guard let stopAreaCell = cell as? StopAreaTableViewCell else {
             return cell
         }
-        let sectionName = Constants.SectionTitles[indexPath.section]
-        let stopAreasInSection = stopAreas[sectionName]!
 
-        let stopArea = stopAreasInSection[indexPath.row]
+        let stopArea = dataFor(indexPath)
         stopAreaCell.stopAreaName.text = stopArea.name
         stopAreaCell.stopAreaTown.text = stopArea.town
         stopAreaCell.distance = self.location?.distanceFromLocation(stopArea.location)
 
         return stopAreaCell
+    }
+
+    private func dataFor(index: NSIndexPath) -> StopArea {
+        let sectionName = Constants.SectionTitles[index.section]
+        let stopAreasInSection = stopAreas[sectionName]!
+        return stopAreasInSection[index.row]
     }
 }
 

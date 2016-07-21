@@ -13,8 +13,6 @@ class StopAreaTableViewCell: UITableViewCell {
     @IBOutlet weak var stopAreaName: UILabel!
     @IBOutlet weak var stopAreaTown: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-
-    @IBOutlet weak var upcomingPassesStackView: UIStackView!
     
     var distance: Double? = Double.infinity {
         didSet {
@@ -36,5 +34,4 @@ class StopAreaTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

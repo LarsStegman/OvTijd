@@ -16,6 +16,8 @@
 		48B79F941D2FF4FC00E6365A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */; };
 		48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */; };
 		48C365311D3FBA2E00827C88 /* OvTijdCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C365301D3FBA2E00827C88 /* OvTijdCore.framework */; };
+		48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C365321D41080100827C88 /* StopAreaDetailViewController.swift */; };
+		48C365351D410BE100827C88 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C365341D410BE100827C88 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		48B79F951D2FF4FC00E6365A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsOverviewTableViewController.swift; sourceTree = "<group>"; };
 		48C365301D3FBA2E00827C88 /* OvTijdCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OvTijdCore.framework; path = "../../../Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphoneos/OvTijdCore.framework"; sourceTree = "<group>"; };
+		48C365321D41080100827C88 /* StopAreaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaDetailViewController.swift; sourceTree = "<group>"; };
+		48C365341D410BE100827C88 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48C365351D410BE100827C88 /* MapKit.framework in Frameworks */,
 				48C365311D3FBA2E00827C88 /* OvTijdCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,6 +52,7 @@
 		48B79F7D1D2FF4FC00E6365A = {
 			isa = PBXGroup;
 			children = (
+				48C365341D410BE100827C88 /* MapKit.framework */,
 				48C365301D3FBA2E00827C88 /* OvTijdCore.framework */,
 				48B79F881D2FF4FC00E6365A /* Source */,
 				48B79F871D2FF4FC00E6365A /* Products */,
@@ -71,6 +77,7 @@
 				48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */,
 				48568BA91D3E4BEC005C97CC /* UpcomingPassView.swift */,
 				48568BAB1D3E4C05005C97CC /* UpcomingPassView.xib */,
+				48C365321D41080100827C88 /* StopAreaDetailViewController.swift */,
 			);
 			name = Source;
 			path = OvTijd;
@@ -130,6 +137,11 @@
 					48B79F851D2FF4FC00E6365A = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 34S7DCU8S9;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -171,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */,
+				48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */,
 				48568BAA1D3E4BEC005C97CC /* UpcomingPassView.swift in Sources */,
 				48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */,
 				48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */,
