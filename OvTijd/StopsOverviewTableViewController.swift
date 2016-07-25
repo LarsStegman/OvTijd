@@ -19,7 +19,7 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
         static let distanceFilter = 100.0
     }
 
-    let manager = OVTManager()
+    let manager: OVTManager = OVTManager.sharedInstance
     let locationManager = OVTLocationManager.sharedInstance
 
     override func viewDidLoad() {
@@ -44,6 +44,7 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
         {
             let stopArea = dataFor(selectedCellIndex)
             stopAreaDetailVC.title = stopArea.name
+            stopAreaDetailVC.stopArea = stopArea
         }
     }
 
@@ -79,7 +80,6 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
 	*/
     var stopAreas = [String: [StopArea]]() {
 		didSet {
-            print("Did set stop areas")
 			tableView.reloadData()
 		}
 	}
