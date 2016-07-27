@@ -24,7 +24,7 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
     var stopArea: StopArea? {
         didSet {
             if stopArea != oldValue {
-                updateData()
+                refreshPassData()
             }
         }
     }
@@ -33,11 +33,11 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
             stopLocationView.removeAnnotations(stopLocationView.annotations)
             stopLocationView.addAnnotations(stops)
             stopLocationView.showAnnotations(stops, animated: true)
-            updatePasses()
+            updateDisplayedPasses()
             updateUI()
         }
     }
-    private var selectedStop: Stop? { didSet { updatePasses() } }
+    private var selectedStop: Stop? { didSet { updateDisplayedPasses() } }
 
     var passes: [Pass] = [Pass]() { didSet { updateUI() } }
 
@@ -50,10 +50,10 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        updateData()
+        refreshPassData()
     }
 
-    private func updateData() {
+    private func refreshPassData() {
         if let sa = stopArea {
             ovtManager.stops(sa, useIn: { [weak self] (stops) in
                 dispatch_async(dispatch_get_main_queue()) {
@@ -63,7 +63,7 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
 
-    private func updatePasses() {
+    private func updateDisplayedPasses() {
         let tempPasses: [Pass]
         if let stop = selectedStop {
             tempPasses = stop.passes
