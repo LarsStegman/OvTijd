@@ -28,12 +28,18 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
             }
         }
     }
-    private var stops = [Stop]() { didSet { updateUI() } }
-    var passes: [Pass] {
-        get { // This should probably be changed to a stored property; it's quite an expensive operation
-            return stops.flatMap({ $0.passes }).sort({ $0.planning.expectedDeparture < $1.planning.expectedDeparture })
+    private var stops = [Stop]() {
+        didSet {
+            stopLocationView.removeAnnotations(stopLocationView.annotations)
+            stopLocationView.addAnnotations(stops)
+            stopLocationView.showAnnotations(stops, animated: true)
+            updatePasses()
+            updateUI()
         }
     }
+    private var selectedStop: Stop? { didSet { updatePasses() } }
+
+    var passes: [Pass] = [Pass]() { didSet { updateUI() } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +63,21 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
 
+    private func updatePasses() {
+        let tempPasses: [Pass]
+        if let stop = selectedStop {
+            tempPasses = stop.passes
+        } else {
+            tempPasses = stops.flatMap({ $0.passes })
+        }
+        passes = tempPasses.sort({ $0.planning.expectedDeparture < $1.planning.expectedDeparture })
+    }
+
     private func updateUI() {
         tableView.reloadData()
     }
+
+    // - MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return passes.count
@@ -70,13 +88,24 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         guard let passCellView = cell as? PassTableViewCell else {
             return cell
         }
-        let pass = passes[indexPath.row]
-        passCellView.direction = pass.lineDetails.destinationName
-        passCellView.currentPassTime = pass.planning.expectedDeparture
-        passCellView.type = pass.transportType
-        passCellView.lineId = pass.lineDetails.publicNumber
+
+        passCellView.pass = passes[indexPath.row]
 
         return passCellView
+    }
+
+    // - MARK: MKMapViewDelegate
+
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        if let annotation = view.annotation,
+            let stop = annotation as? Stop {
+            selectedStop = stop
+            stopLocationView.showAnnotations([stop], animated: true)
+        }
+    }
+
+    func mapView(mapView: MKMapView, didDeselectAnnotationView view: MKAnnotationView) {
+        selectedStop = nil
     }
 }
 
@@ -86,5 +115,19 @@ func <(lhs: NSDate, rhs: NSDate) -> Bool {
 
 func ==(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.isEqualToDate(rhs)
+}
+
+extension Stop: MKAnnotation {
+    public var coordinate: CLLocationCoordinate2D {
+        return location.coordinate
+    }
+
+    public var title: String? {
+        return timingPoint.timingPointName
+    }
+
+    public var subtitle: String? {
+        return "\(timingPoint.timingPointCode)"
+    }
 }
 

@@ -13,28 +13,37 @@ class PassTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lineIcon: UIImageView!
     @IBOutlet weak var directionLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var passTimeLabel: UILabel!
 
-    var type: Transport?            { didSet { updateUI() } }
-    var lineId: String = ""         { didSet { updateUI() } }
-    var currentPassTime: NSDate?    { didSet { updateUI() } }
-    var direction: String = ""      { didSet { updateUI() } }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var pass: Pass? {
+        didSet {
+            type = pass?.transportType
+            lineId = pass?.lineDetails.publicNumber ?? ""
+            currentPassTime = pass?.planning.expectedDeparture
+            direction = pass?.lineDetails.destinationName ?? ""
+        }
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    private var type: Transport?            { didSet { updateUI() } }
+    private var lineId: String = ""         { didSet { updateUI() } }
+    private var currentPassTime: NSDate?    { didSet { updateUI() } }
+    private var direction: String = ""      { didSet { updateUI() } }
 
-        // Configure the view for the selected state
-    }
+    let dateFormatter: NSDateFormatter = {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.timeZone = NSTimeZone(name: "Europe/Amsterdam")
+        dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm")
+        return dateFormatter
+    }()
 
     private func updateUI() {
         directionLabel.text = direction
-        //lineIcon.image = Create icon from transport and lineId
-        passTimeLabel.text = currentPassTime?.description
+        typeLabel.text = "\(type?.rawValue ?? "" ) \(lineId)"
+        lineIcon.image = type?.generateIcon(forId: lineId)
+        if currentPassTime != nil {
+            passTimeLabel.text = dateFormatter.stringFromDate(currentPassTime!)
+        }
     }
 
 }
