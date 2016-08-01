@@ -32,14 +32,24 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         didSet {
             stopLocationView.removeAnnotations(stopLocationView.annotations)
             stopLocationView.addAnnotations(stops)
-            stopLocationView.showAnnotations(stops, animated: true)
-            updateDisplayedPasses()
+            stopLocationView.showAnnotations(stops, animated: false)
+            passes = stops.flatMap({ $0.passes }).sort({ $0.planning.expectedDeparture < $1.planning.expectedDeparture })
             updateUI()
         }
     }
-    private var selectedStop: Stop? { didSet { updateDisplayedPasses() } }
+    private var selectedStop: Stop? {
+        didSet {
+            if selectedStop != nil {
+                stopLocationView.showAnnotations([selectedStop!], animated: true)
+            } else {
+                stopLocationView.showAnnotations(stops, animated: true)
+            }
+            updateVisiblePasses()
+        }
+    }
 
-    var passes: [Pass] = [Pass]() { didSet { updateUI() } }
+    var passes = [Pass]() { didSet { tableView.reloadData() } }
+    var hiddenPassIndeces = [Int]() { didSet { updateUI() } }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,21 +70,26 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
                     self?.stops = stops
                 }
             })
+        } else {
+            passes = [Pass]()
         }
     }
 
-    private func updateDisplayedPasses() {
-        let tempPasses: [Pass]
+    private func updateVisiblePasses() {
         if let stop = selectedStop {
-            tempPasses = stop.passes
+            var elemIndeces = [Int]()
+            for (index, pass) in passes.enumerate() where pass.timingPoint.timingPointCode != stop.timingPoint.timingPointCode {
+                elemIndeces.append(index)
+            }
+            hiddenPassIndeces = elemIndeces
         } else {
-            tempPasses = stops.flatMap({ $0.passes })
+            hiddenPassIndeces = [Int]()
         }
-        passes = tempPasses.sort({ $0.planning.expectedDeparture < $1.planning.expectedDeparture })
     }
 
     private func updateUI() {
-        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 
     // - MARK: UITableViewDelegate
@@ -90,8 +105,25 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
 
         passCellView.pass = passes[indexPath.row]
-
         return passCellView
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return hiddenPassIndeces.contains(indexPath.row) ? 0.0 : tableView.rowHeight
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let pass = passes[indexPath.row]
+        if let stop = pass.stop {
+            stopLocationView.selectAnnotation(stop, animated: true)
+        }
+    }
+
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        let pass = passes[indexPath.row]
+        if let stop = pass.stop {
+            stopLocationView.deselectAnnotation(stop, animated: true)
+        }
     }
 
     // - MARK: MKMapViewDelegate
@@ -100,7 +132,6 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         if let annotation = view.annotation,
             let stop = annotation as? Stop {
             selectedStop = stop
-            stopLocationView.showAnnotations([stop], animated: true)
         }
     }
 
