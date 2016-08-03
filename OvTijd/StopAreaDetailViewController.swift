@@ -109,7 +109,11 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return hiddenPassIndeces.contains(indexPath.row) ? 0.0 : tableView.rowHeight
+        return shouldHideRow(at: indexPath) ? 0.0 : tableView.rowHeight
+    }
+
+    private func shouldHideRow(at indexPath: NSIndexPath) -> Bool {
+        return hiddenPassIndeces.contains(indexPath.row)
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

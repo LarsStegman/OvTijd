@@ -11,9 +11,8 @@ import OvTijdCore
 
 class PassTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var lineIcon: UIImageView!
+    @IBOutlet weak var lineIdLabel: AnnotatedLabel!
     @IBOutlet weak var directionLabel: UILabel!
-    @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var deprecatedPassTimeLabel: UILabel!
     @IBOutlet weak var passTimeLabel: UILabel!
 
@@ -47,8 +46,9 @@ class PassTableViewCell: UITableViewCell {
 
     private func updateUI() {
         directionLabel.text = direction
-        typeLabel.text = lineId
-        lineIcon.image = type?.generateIcon(forId: lineId)
+        lineIdLabel.valueText = lineId
+        lineIdLabel.labelText = type?.rawValue ?? "Type"
+        separatorInset.left = directionLabel.frame.origin.x
         if let currPassTime = currentPassTime {
             passTimeLabel.text = dateFormatter.stringFromDate(currPassTime)
             if let tarDepartureTime = plannedPassTime {
@@ -64,6 +64,18 @@ class PassTableViewCell: UITableViewCell {
             }
         }
 
+    }
+
+    private var baseLineLabelAndDirectionLabelEqual: NSLayoutConstraint?
+
+    override func updateConstraints() {
+        if let constraint = baseLineLabelAndDirectionLabelEqual {
+            NSLayoutConstraint.deactivateConstraints([constraint])
+        }
+
+        baseLineLabelAndDirectionLabelEqual = NSLayoutConstraint(item: directionLabel, attribute: .FirstBaseline, relatedBy: .Equal, toItem: lineIdLabel.labelLabel, attribute: .FirstBaseline, multiplier: 1, constant: 0)
+        NSLayoutConstraint.activateConstraints([baseLineLabelAndDirectionLabelEqual!])
+        super.updateConstraints()
     }
 
 }
