@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YZA-FV-I4A">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YZA-FV-I4A">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -68,6 +68,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="OvTijd" id="7w7-Vv-IC7"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="CjL-5Q-rlC">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refresh:" destination="fno-TJ-7IL" eventType="valueChanged" id="ZIB-LC-hNa"/>
+                        </connections>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Y4-ML-BZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -126,7 +132,7 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="szN-RQ-1wk" customClass="AnnotatedLabel" customModule="OvTijd" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szN-RQ-1wk" customClass="AnnotatedLabel" customModule="OvTijd" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="45" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -174,6 +180,7 @@
                                             <outlet property="directionLabel" destination="J11-YW-J7a" id="kCQ-AB-BKH"/>
                                             <outlet property="lineIdLabel" destination="szN-RQ-1wk" id="q2R-4P-rhp"/>
                                             <outlet property="passTimeLabel" destination="VfS-hi-zfA" id="ith-A1-DLU"/>
+                                            <segue destination="uSt-f8-A44" kind="show" id="78K-Nk-8e0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -203,6 +210,73 @@
             </objects>
             <point key="canvasLocation" x="2066" y="435"/>
         </scene>
+        <!--Journey Overview Table View Controller-->
+        <scene sceneID="Vk7-kA-ynj">
+            <objects>
+                <tableViewController id="uSt-f8-A44" customClass="JourneyOverviewTableViewController" customModule="OvTijd" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" id="Q58-sS-QnP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="JourneyPassCell" rowHeight="56" id="ljF-G7-BCv" customClass="JourneyPassCellTableViewCell" customModule="OvTijd" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="56"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ljF-G7-BCv" id="2q0-uK-51d">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="55"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHx-Uc-j35" customClass="StopIndicator" customModule="OvTijd" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="0.0" width="20" height="56"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="yWg-gJ-R7y"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="circleRadius">
+                                                    <real key="value" value="7"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJE-l3-b9l">
+                                            <rect key="frame" x="36" y="8" width="81" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="39" translatesAutoresizingMaskIntoConstraints="NO" id="kfb-jW-zac" customClass="PlanningView" customModule="OvTijd" customModuleProvider="target">
+                                            <rect key="frame" x="535" y="8" width="57" height="39"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="fHx-Uc-j35" firstAttribute="leading" secondItem="2q0-uK-51d" secondAttribute="leadingMargin" id="2aT-cT-EwR"/>
+                                        <constraint firstItem="QJE-l3-b9l" firstAttribute="leading" secondItem="fHx-Uc-j35" secondAttribute="trailing" constant="8" symbolic="YES" id="Ycz-41-moe"/>
+                                        <constraint firstItem="kfb-jW-zac" firstAttribute="trailing" secondItem="2q0-uK-51d" secondAttribute="trailingMargin" id="ZTh-K5-1th"/>
+                                        <constraint firstItem="QJE-l3-b9l" firstAttribute="top" secondItem="2q0-uK-51d" secondAttribute="topMargin" id="ace-05-wuF"/>
+                                        <constraint firstAttribute="topMargin" secondItem="kfb-jW-zac" secondAttribute="top" id="qkO-y6-R9g"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <constraints>
+                                    <constraint firstItem="fHx-Uc-j35" firstAttribute="top" secondItem="ljF-G7-BCv" secondAttribute="top" id="MKG-bV-h3O"/>
+                                    <constraint firstAttribute="bottom" secondItem="fHx-Uc-j35" secondAttribute="bottom" id="MfT-7r-opT"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="planningView" destination="kfb-jW-zac" id="qBL-xD-y8S"/>
+                                    <outlet property="stopIndicator" destination="fHx-Uc-j35" id="bWh-OB-K9x"/>
+                                    <outlet property="stopNameLabel" destination="QJE-l3-b9l" id="c99-1H-6KP"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="uSt-f8-A44" id="qCc-Mv-QsO"/>
+                            <outlet property="delegate" destination="uSt-f8-A44" id="KeM-OP-NfC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H42-bi-Mlb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2780" y="435"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="xU7-kp-btT">
             <objects>
@@ -211,9 +285,12 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cFd-8g-kvq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="wk1-1Y-kRC">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="wk1-1Y-kRC">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>

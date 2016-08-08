@@ -20,21 +20,16 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     @IBOutlet weak var stopLocationView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
+    var refreshControl = UIRefreshControl()
 
-    var stopArea: StopArea? {
-        didSet {
-            if stopArea != oldValue {
-                refreshPassData()
-            }
-        }
-    }
+    var stopArea: StopArea?
     private var stops = [Stop]() {
         didSet {
-            stopLocationView.removeAnnotations(stopLocationView.annotations)
+            let oldAnnotations = stopLocationView.annotations
             stopLocationView.addAnnotations(stops)
             stopLocationView.showAnnotations(stops, animated: false)
-            passes = stops.flatMap({ $0.passes }).sort({ $0.planning.expectedDeparture < $1.planning.expectedDeparture })
-            updateUI()
+            stopLocationView.removeAnnotations(oldAnnotations)
+            passes = stops.flatMap({ $0.passes })
         }
     }
     private var selectedStop: Stop? {
@@ -48,7 +43,23 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
 
-    var passes = [Pass]() { didSet { tableView.reloadData() } }
+    /**
+     An array of passes sorted ascending on departure time.
+     */
+    private var storedPasses = [Pass]()
+
+    /**
+
+     */
+    var passes: [Pass] {
+        set {
+            storedPasses = newValue.sort({ $0.planning.expectedDepartureTime < $1.planning.expectedDepartureTime })
+            tableView.reloadData()
+        }
+        get {
+            return storedPasses
+        }
+    }
     var hiddenPassIndeces = [Int]() { didSet { updateUI() } }
 
     override func viewDidLoad() {
@@ -56,6 +67,8 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         tableView.delegate = self
         tableView.dataSource = self
         stopLocationView.delegate = self
+        refreshControl.addTarget(self, action: #selector(StopAreaDetailViewController.refresh(_:)), forControlEvents: .ValueChanged)
+        tableView.addSubview(refreshControl)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -63,11 +76,17 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         refreshPassData()
     }
 
+    func refresh(sender: UIRefreshControl) {
+        refreshPassData()
+    }
+
     private func refreshPassData() {
         if let sa = stopArea {
+            refreshControl.beginRefreshing()
             ovtManager.stops(sa, useIn: { [weak self] (stops) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self?.stops = stops
+                    self?.refreshControl.endRefreshing()
                 }
             })
         } else {

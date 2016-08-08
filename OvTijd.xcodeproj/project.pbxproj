@@ -9,7 +9,12 @@
 /* Begin PBXBuildFile section */
 		4815A95F1D421D3400A542FC /* PassTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4815A95E1D421D3400A542FC /* PassTableViewCell.swift */; };
 		48252B2D1D42A58A009D64B2 /* OvTijdCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48252B2C1D42A58A009D64B2 /* OvTijdCore.framework */; };
+		485DC9761D5679B9001E95CF /* UINavigationBarSubtitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485DC9751D5679B8001E95CF /* UINavigationBarSubtitleLabel.swift */; };
+		485DC9781D567B8D001E95CF /* JourneyOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485DC9771D567B8D001E95CF /* JourneyOverviewTableViewController.swift */; };
+		485DC97E1D568858001E95CF /* JourneyPassCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485DC97D1D568858001E95CF /* JourneyPassCellTableViewCell.swift */; };
+		485DC9801D56893E001E95CF /* PlanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485DC97F1D56893E001E95CF /* PlanningView.swift */; };
 		4872B0751D51157100845E3B /* AnnotatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4872B0741D51157100845E3B /* AnnotatedLabel.swift */; };
+		4880A28F1D58A97800D03F14 /* StopIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4880A28E1D58A97800D03F14 /* StopIndicator.swift */; };
 		48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */; };
 		48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F891D2FF4FC00E6365A /* AppDelegate.swift */; };
 		48B79F8F1D2FF4FC00E6365A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F8D1D2FF4FC00E6365A /* Main.storyboard */; };
@@ -23,7 +28,12 @@
 /* Begin PBXFileReference section */
 		4815A95E1D421D3400A542FC /* PassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTableViewCell.swift; sourceTree = "<group>"; };
 		48252B2C1D42A58A009D64B2 /* OvTijdCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OvTijdCore.framework; path = "../../../Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphonesimulator/OvTijdCore.framework"; sourceTree = "<group>"; };
+		485DC9751D5679B8001E95CF /* UINavigationBarSubtitleLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBarSubtitleLabel.swift; sourceTree = "<group>"; };
+		485DC9771D567B8D001E95CF /* JourneyOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyOverviewTableViewController.swift; sourceTree = "<group>"; };
+		485DC97D1D568858001E95CF /* JourneyPassCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JourneyPassCellTableViewCell.swift; sourceTree = "<group>"; };
+		485DC97F1D56893E001E95CF /* PlanningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanningView.swift; sourceTree = "<group>"; };
 		4872B0741D51157100845E3B /* AnnotatedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotatedLabel.swift; sourceTree = "<group>"; };
+		4880A28E1D58A97800D03F14 /* StopIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopIndicator.swift; sourceTree = "<group>"; };
 		48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaTableViewCell.swift; sourceTree = "<group>"; };
 		48B79F861D2FF4FC00E6365A /* OvTijd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvTijd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48B79F891D2FF4FC00E6365A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,12 +82,17 @@
 			children = (
 				48B79F9B1D2FF53A00E6365A /* Supporting Files */,
 				48B79F8D1D2FF4FC00E6365A /* Main.storyboard */,
+				485DC97D1D568858001E95CF /* JourneyPassCellTableViewCell.swift */,
 				4815A95E1D421D3400A542FC /* PassTableViewCell.swift */,
 				48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */,
 				48B79F951D2FF4FC00E6365A /* Info.plist */,
 				48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */,
 				48C365321D41080100827C88 /* StopAreaDetailViewController.swift */,
 				4872B0741D51157100845E3B /* AnnotatedLabel.swift */,
+				485DC9751D5679B8001E95CF /* UINavigationBarSubtitleLabel.swift */,
+				485DC9771D567B8D001E95CF /* JourneyOverviewTableViewController.swift */,
+				485DC97F1D56893E001E95CF /* PlanningView.swift */,
+				4880A28E1D58A97800D03F14 /* StopIndicator.swift */,
 			);
 			name = Source;
 			path = OvTijd;
@@ -182,11 +197,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */,
+				485DC9801D56893E001E95CF /* PlanningView.swift in Sources */,
+				4880A28F1D58A97800D03F14 /* StopIndicator.swift in Sources */,
 				4872B0751D51157100845E3B /* AnnotatedLabel.swift in Sources */,
 				48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */,
+				485DC9761D5679B9001E95CF /* UINavigationBarSubtitleLabel.swift in Sources */,
 				4815A95F1D421D3400A542FC /* PassTableViewCell.swift in Sources */,
+				485DC9781D567B8D001E95CF /* JourneyOverviewTableViewController.swift in Sources */,
 				48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */,
 				48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */,
+				485DC97E1D568858001E95CF /* JourneyPassCellTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

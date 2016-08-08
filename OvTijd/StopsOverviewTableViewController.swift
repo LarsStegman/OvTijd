@@ -22,10 +22,40 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
     let manager: OVTManager = OVTManager.sharedInstance
     let locationManager = OVTLocationManager.sharedInstance
 
+    // MARK: - Data management
+
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if sender.refreshing {
+            refreshStopAreas()
+        }
+    }
+
+    private func refreshStopAreas() {
+        if let newLocation = location {
+            if let refresh = refreshControl {
+                tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refresh.frame.size.height), animated: true)
+                refresh.beginRefreshing()
+            }
+
+            manager.stopAreas(newLocation) {
+                [weak self] (stopAreas: [StopArea]) in
+                if newLocation == self?.location { // Location might have changed already
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.stopAreas[Constants.Nearby] = stopAreas
+                        self?.refreshControl?.endRefreshing()
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - View Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        automaticallyAdjustsScrollViewInsets = true
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -52,16 +82,7 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
 
     var location: CLLocation? {
         didSet {
-            if let newLocation = location {
-                manager.stopAreas(newLocation) {
-                    [weak self] (stopAreas: [StopArea]) in
-                    if newLocation == self?.location { // Location might have changed already
-                        dispatch_async(dispatch_get_main_queue()) {
-                            self?.stopAreas[Constants.Nearby] = stopAreas
-                        }
-                    }
-                }
-            }
+            refreshStopAreas()
         }
     }
 

@@ -12,16 +12,16 @@ import UIKit
 class AnnotatedLabel: UIView {
 
     @IBInspectable var labelText: String = "Label"                  { didSet { updateUI() } }
-    @IBInspectable var labelColor: UIColor = UIColor.blackColor()   { didSet { updateUI() } }
+    @IBInspectable var labelColor: UIColor = UIColor.darkGrayColor(){ didSet { updateUI() } }
     @IBInspectable var labelFontSize: CGFloat = 12                  { didSet { updateUI() } }
     
     @IBInspectable var valueColor: UIColor = UIColor.blackColor()   { didSet { updateUI() } }
     @IBInspectable var valueText: String = "Value"                  { didSet { updateUI() } }
     @IBInspectable var valueFontSize: CGFloat = 12                  { didSet { updateUI() } }
     
-    @IBInspectable var separatorColor: UIColor = UIColor.lightGrayColor()    { didSet { updateUI() } }
+    @IBInspectable var separatorColor: UIColor = UIColor.blackColor()    { didSet { updateUI() } }
     @IBInspectable var separatorMargin: CGFloat = 2                 { didSet { updateUI() } }
-    @IBInspectable var separatorWidth: CGFloat = 1                  { didSet { updateUI() } }
+    @IBInspectable var separatorWidth: CGFloat = 0.05               { didSet { updateUI() } }
 
     let labelLabel = UILabel()
     let valueLabel = UILabel()
@@ -34,7 +34,6 @@ class AnnotatedLabel: UIView {
 
         valueLabel.text = valueText
         valueLabel.font = UIFont.systemFontOfSize(valueFontSize)
-        valueLabel.textAlignment = .Center
         valueLabel.textColor = valueColor
 
         invalidateIntrinsicContentSize()

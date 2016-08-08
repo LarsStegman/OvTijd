@@ -19,23 +19,27 @@ class PassTableViewCell: UITableViewCell {
     var pass: Pass? {
         didSet {
             type = pass?.transportType
-            lineId = pass?.lineDetails.publicNumber ?? ""
+            if let passData = pass {
+                lineId = passData.lineDetails.publicNumber ?? ""
 
-            direction = pass?.lineDetails.destinationName ?? ""
-            if let planning = pass?.planning {
-                currentPassTime = planning.expectedDeparture
-                if abs(planning.expectedDeparture.timeIntervalSinceDate(planning.targetDepartureTime)) > 60 {
+                direction = passData.lineDetails.destinationName ?? ""
+                passed = passData.status == .Some(.Passed)
+                let planning = passData.planning
+                currentPassTime = planning.expectedDepartureTime
+                if abs(planning.expectedDepartureTime.timeIntervalSinceDate(planning.targetDepartureTime)) > 30 {
                     plannedPassTime = planning.targetDepartureTime
                 }
             }
+            updateUI()
         }
     }
 
-    private var type: Transport?            { didSet { updateUI() } }
-    private var lineId: String = ""         { didSet { updateUI() } }
-    private var plannedPassTime: NSDate?    { didSet { updateUI() } }
-    private var currentPassTime: NSDate?    { didSet { updateUI() } }
-    private var direction: String = ""      { didSet { updateUI() } }
+    private var type: Transport?
+    private var lineId: String = ""
+    private var plannedPassTime: NSDate?
+    private var currentPassTime: NSDate?
+    private var direction: String = ""
+    private var passed: Bool = false
 
     let dateFormatter: NSDateFormatter = {
         let dateFormatter = NSDateFormatter()
@@ -46,9 +50,12 @@ class PassTableViewCell: UITableViewCell {
 
     private func updateUI() {
         directionLabel.text = direction
+        directionLabel.enabled = !passed
+        lineIdLabel.valueLabel.textAlignment = .Center
         lineIdLabel.valueText = lineId
         lineIdLabel.labelText = type?.rawValue ?? "Type"
         separatorInset.left = directionLabel.frame.origin.x
+        
         if let currPassTime = currentPassTime {
             passTimeLabel.text = dateFormatter.stringFromDate(currPassTime)
             if let tarDepartureTime = plannedPassTime {
