@@ -46,22 +46,21 @@ class StopIndicator: UIView {
         super.drawRect(rect)
         let context = UIGraphicsGetCurrentContext()
         CGContextSaveGState(context)
-        CGContextSetStrokeColorWithColor(context, lineColor.CGColor)
-
-        CGContextSetLineWidth(context, lineWidth)
 
         if passed {
-            CGContextAddPath(context, indicatorPath())
+            CGContextAddPath(context, indicatorPath)
             CGContextSetFillColorWithColor(context, lineColor.CGColor)
             CGContextFillPath(context)
         }
 
-        CGContextAddPath(context, indicatorPath())
+        CGContextAddPath(context, indicatorPath)
+        CGContextSetStrokeColorWithColor(context, lineColor.CGColor)
+        CGContextSetLineWidth(context, lineWidth)
         CGContextStrokePath(context)
     }
 
-    var cachedPath: CGPath?
-    private func indicatorPath() -> CGPath {
+    private var cachedPath: CGPath?
+    var indicatorPath: CGPath {
         if let path = cachedPath {
             return path
         }
