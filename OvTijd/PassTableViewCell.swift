@@ -13,22 +13,17 @@ class PassTableViewCell: UITableViewCell {
 
     @IBOutlet weak var lineIdLabel: AnnotatedLabel!
     @IBOutlet weak var directionLabel: UILabel!
-    @IBOutlet weak var deprecatedPassTimeLabel: UILabel!
-    @IBOutlet weak var passTimeLabel: UILabel!
+    @IBOutlet weak var planningView: PlanningView!
+
 
     var pass: Pass? {
         didSet {
             type = pass?.transportType
             if let passData = pass {
                 lineId = passData.lineDetails.publicNumber ?? ""
-
                 direction = passData.lineDetails.destinationName ?? ""
                 passed = passData.status == .Some(.Passed)
-                let planning = passData.planning
-                currentPassTime = planning.expectedDepartureTime
-                if abs(planning.expectedDepartureTime.timeIntervalSinceDate(planning.targetDepartureTime)) > 30 {
-                    plannedPassTime = planning.targetDepartureTime
-                }
+                planning = passData.planning
             }
             updateUI()
         }
@@ -36,10 +31,9 @@ class PassTableViewCell: UITableViewCell {
 
     private var type: Transport?
     private var lineId: String = ""
-    private var plannedPassTime: NSDate?
-    private var currentPassTime: NSDate?
     private var direction: String = ""
     private var passed: Bool = false
+    private var planning: PassPlanning?
 
     let dateFormatter: NSDateFormatter = {
         let dateFormatter = NSDateFormatter()
@@ -55,22 +49,7 @@ class PassTableViewCell: UITableViewCell {
         lineIdLabel.valueText = lineId
         lineIdLabel.labelText = type?.rawValue ?? "Type"
         separatorInset.left = directionLabel.frame.origin.x
-        
-        if let currPassTime = currentPassTime {
-            passTimeLabel.text = dateFormatter.stringFromDate(currPassTime)
-            if let tarDepartureTime = plannedPassTime {
-                let plannedDepartureTimeLabelText = NSAttributedString(
-                    string: dateFormatter.stringFromDate(tarDepartureTime),
-                    attributes: [
-                        NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-                        NSStrikethroughColorAttributeName: UIColor.redColor(),
-                        NSForegroundColorAttributeName: UIColor.redColor()])
-                deprecatedPassTimeLabel.attributedText = plannedDepartureTimeLabelText
-            } else {
-                deprecatedPassTimeLabel.text = ""
-            }
-        }
-
+        planningView.planning = planning
     }
 
     private var baseLineLabelAndDirectionLabelEqual: NSLayoutConstraint?

@@ -111,6 +111,15 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         tableView.endUpdates()
     }
 
+    // - MARK: UIView
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if  let destinationVC = segue.destinationViewController as? JourneyOverviewTableViewController,
+            let selectedCellIndex = tableView.indexPathForSelectedRow {
+            destinationVC.localpassTimeCode = passes[selectedCellIndex.row].code
+        }
+    }
+
     // - MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -133,13 +142,6 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     private func shouldHideRow(at indexPath: NSIndexPath) -> Bool {
         return hiddenPassIndeces.contains(indexPath.row)
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let pass = passes[indexPath.row]
-        if let stop = pass.stop {
-            stopLocationView.selectAnnotation(stop, animated: true)
-        }
     }
 
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
