@@ -8,11 +8,40 @@
 
 import UIKit
 
+import OvTijdCore
+
 class JourneyOverviewTableViewController: UITableViewController {
+
+    private struct Constants {
+        static let CellId = "JourneyPassCell"
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.titleView = UINavigationBarSubtitleLabel()
+    }
+
+    let manager = OVTManager.sharedInstance
+
+    var localpassTimeCode: String? {
+        didSet {
+            refreshJourneyData()
+        }
+    }
+    private var journey: Journey? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
+    private func refreshJourneyData() {
+        if let code = localpassTimeCode {
+            manager.journey([code]) { [weak self] (journeys) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self?.journey = journeys.first
+                }
+            }
+        }
     }
     // MARK: - Table view data source
 
@@ -22,15 +51,18 @@ class JourneyOverviewTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return journey?.passes.count ?? 0
     }
 
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.CellId, forIndexPath: indexPath)
+        guard let jPCell = cell as? JourneyPassCellTableViewCell else {
+            return cell
+        }
 
-        // Configure the cell...
+        jPCell.pass = journey?.passes[indexPath.row]
 
-        return cell
+        return jPCell
     }
 }

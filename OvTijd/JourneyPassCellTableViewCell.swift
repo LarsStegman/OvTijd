@@ -15,5 +15,21 @@ class JourneyPassCellTableViewCell: UITableViewCell {
     @IBOutlet weak var planningView: PlanningView!
     @IBOutlet weak var stopIndicator: StopIndicator!
 
+    var pass: Pass? {
+        didSet {
+            updateUI()
+        }
+    }
+
+    private func updateUI() {
+        separatorInset.left = stopNameLabel.frame.origin.x
+        if let pass = pass {
+            stopNameLabel.text = pass.timingPoint.timingPointName
+            planningView.planning = pass.planning
+            stopIndicator.type = pass.journeyDetails.stopType
+            stopIndicator.passed = pass.status == .Arrived || pass.status == .Passed
+        }
+
+    }
 
 }

@@ -10,7 +10,7 @@
         <!--OvTijd-->
         <scene sceneID="BYa-8q-Xix">
             <objects>
-                <tableViewController id="fno-TJ-7IL" customClass="StopsOverviewTableViewController" customModule="OvTijd" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="fno-TJ-7IL" customClass="StopAreaOverviewTableViewController" customModule="OvTijd" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="84" sectionHeaderHeight="18" sectionFooterHeight="18" id="0Rk-Ma-cS9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -109,29 +109,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Direction" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J11-YW-J7a">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="Direction" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J11-YW-J7a">
                                                     <rect key="frame" x="61" y="8" width="482" height="20"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0vd-k6-yo7">
-                                                    <rect key="frame" x="551" y="8" width="41" height="37"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="800" text="10:09" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfS-hi-zfA">
-                                                            <rect key="frame" x="0.0" y="0.0" width="41" height="20"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:08" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riz-jy-TVa">
-                                                            <rect key="frame" x="0.0" y="20" width="41" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szN-RQ-1wk" customClass="AnnotatedLabel" customModule="OvTijd" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="8" width="45" height="47"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,22 +147,23 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
+                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="39" translatesAutoresizingMaskIntoConstraints="NO" id="HFQ-zf-b51" customClass="PlanningView" customModule="OvTijd" customModuleProvider="target">
+                                                    <rect key="frame" x="535" y="8" width="57" height="39"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="topMargin" secondItem="J11-YW-J7a" secondAttribute="top" id="54F-Pi-Kuv"/>
                                                 <constraint firstItem="J11-YW-J7a" firstAttribute="leading" secondItem="szN-RQ-1wk" secondAttribute="trailing" constant="8" symbolic="YES" id="AqW-JI-skq"/>
+                                                <constraint firstItem="HFQ-zf-b51" firstAttribute="trailing" secondItem="Bh0-ra-3tT" secondAttribute="trailingMargin" id="MM1-Tq-2ah"/>
                                                 <constraint firstAttribute="topMargin" secondItem="szN-RQ-1wk" secondAttribute="top" id="djd-au-Vpw"/>
                                                 <constraint firstAttribute="leadingMargin" secondItem="szN-RQ-1wk" secondAttribute="leading" id="dxc-tz-JPw"/>
-                                                <constraint firstItem="0vd-k6-yo7" firstAttribute="leading" secondItem="J11-YW-J7a" secondAttribute="trailing" constant="8" symbolic="YES" id="gJe-El-sRg"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="0vd-k6-yo7" secondAttribute="trailing" id="gzn-hR-3rE"/>
-                                                <constraint firstAttribute="topMargin" secondItem="0vd-k6-yo7" secondAttribute="top" id="vFl-De-Vbe"/>
+                                                <constraint firstAttribute="topMargin" secondItem="HFQ-zf-b51" secondAttribute="top" id="hZP-qc-RlS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="deprecatedPassTimeLabel" destination="riz-jy-TVa" id="vnj-SZ-Olu"/>
                                             <outlet property="directionLabel" destination="J11-YW-J7a" id="kCQ-AB-BKH"/>
                                             <outlet property="lineIdLabel" destination="szN-RQ-1wk" id="q2R-4P-rhp"/>
-                                            <outlet property="passTimeLabel" destination="VfS-hi-zfA" id="ith-A1-DLU"/>
+                                            <outlet property="planningView" destination="HFQ-zf-b51" id="HOr-k8-Ikv"/>
                                             <segue destination="uSt-f8-A44" kind="show" id="78K-Nk-8e0"/>
                                         </connections>
                                     </tableViewCell>
@@ -245,7 +229,6 @@
                                         </label>
                                         <view contentMode="scaleToFill" placeholderIntrinsicWidth="57" placeholderIntrinsicHeight="39" translatesAutoresizingMaskIntoConstraints="NO" id="kfb-jW-zac" customClass="PlanningView" customModule="OvTijd" customModuleProvider="target">
                                             <rect key="frame" x="535" y="8" width="57" height="39"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                     <constraints>

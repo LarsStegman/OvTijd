@@ -9,6 +9,7 @@
 import UIKit
 import OvTijdCore
 
+@IBDesignable
 class PlanningView: UIView {
 
     let stack: UIStackView
@@ -38,26 +39,30 @@ class PlanningView: UIView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        stack = UIStackView(arrangedSubviews: [currentDepartureTimeLabel, plannedDepartureTimeLabel])
+        stack = UIStackView()
         super.init(coder: aDecoder)
         setup()
     }
 
     override init(frame: CGRect) {
-        stack = UIStackView(arrangedSubviews: [currentDepartureTimeLabel, plannedDepartureTimeLabel])
+        stack = UIStackView()
         super.init(frame: frame)
         setup()
     }
 
     private func setup() {
         stack.axis = .Vertical
+        stack.addArrangedSubview(currentDepartureTimeLabel)
+        stack.addArrangedSubview(plannedDepartureTimeLabel)
         addSubview(stack)
+        updateLabels()
 
         var constraints = [NSLayoutConstraint]()
         constraints.append(NSLayoutConstraint(item: stack, attribute: .Top, relatedBy: .Equal, toItem: self,
             attribute: .Top, multiplier: 1, constant: 0))
         constraints.append(NSLayoutConstraint(item: stack, attribute: .Trailing, relatedBy: .Equal, toItem: self,
             attribute: .Trailing, multiplier: 1, constant: 0))
+        stack.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activateConstraints(constraints)
     }
@@ -77,6 +82,7 @@ class PlanningView: UIView {
             currentDepartureTimeLabel.text = "10:09"
             plannedDepartureTimeLabel.text = "10:08"
         }
+        invalidateIntrinsicContentSize()
     }
 
     override func intrinsicContentSize() -> CGSize {

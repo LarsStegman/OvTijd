@@ -20,7 +20,7 @@
 		48B79F8F1D2FF4FC00E6365A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F8D1D2FF4FC00E6365A /* Main.storyboard */; };
 		48B79F911D2FF4FC00E6365A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F901D2FF4FC00E6365A /* Assets.xcassets */; };
 		48B79F941D2FF4FC00E6365A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48B79F921D2FF4FC00E6365A /* LaunchScreen.storyboard */; };
-		48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */; };
+		48B79F9F1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift */; };
 		48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C365321D41080100827C88 /* StopAreaDetailViewController.swift */; };
 		48C365351D410BE100827C88 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C365341D410BE100827C88 /* MapKit.framework */; };
 /* End PBXBuildFile section */
@@ -41,7 +41,7 @@
 		48B79F901D2FF4FC00E6365A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48B79F931D2FF4FC00E6365A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48B79F951D2FF4FC00E6365A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopsOverviewTableViewController.swift; sourceTree = "<group>"; };
+		48B79F9E1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaOverviewTableViewController.swift; sourceTree = "<group>"; };
 		48C365321D41080100827C88 /* StopAreaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaDetailViewController.swift; sourceTree = "<group>"; };
 		48C365341D410BE100827C88 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -59,6 +59,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4885FC461D5C7D1700A1A581 /* Journey */ = {
+			isa = PBXGroup;
+			children = (
+				485DC97D1D568858001E95CF /* JourneyPassCellTableViewCell.swift */,
+				485DC9771D567B8D001E95CF /* JourneyOverviewTableViewController.swift */,
+				4880A28E1D58A97800D03F14 /* StopIndicator.swift */,
+			);
+			name = Journey;
+			sourceTree = "<group>";
+		};
+		4885FC471D5C7E0600A1A581 /* Pass */ = {
+			isa = PBXGroup;
+			children = (
+				4815A95E1D421D3400A542FC /* PassTableViewCell.swift */,
+				48C365321D41080100827C88 /* StopAreaDetailViewController.swift */,
+			);
+			name = Pass;
+			sourceTree = "<group>";
+		};
+		4885FC481D5C7E3800A1A581 /* Stop Area */ = {
+			isa = PBXGroup;
+			children = (
+				48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */,
+				48B79F9E1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift */,
+			);
+			name = "Stop Area";
+			sourceTree = "<group>";
+		};
 		48B79F7D1D2FF4FC00E6365A = {
 			isa = PBXGroup;
 			children = (
@@ -82,17 +110,13 @@
 			children = (
 				48B79F9B1D2FF53A00E6365A /* Supporting Files */,
 				48B79F8D1D2FF4FC00E6365A /* Main.storyboard */,
-				485DC97D1D568858001E95CF /* JourneyPassCellTableViewCell.swift */,
-				4815A95E1D421D3400A542FC /* PassTableViewCell.swift */,
-				48A8916B1D379E070010A609 /* StopAreaTableViewCell.swift */,
+				4885FC461D5C7D1700A1A581 /* Journey */,
+				4885FC471D5C7E0600A1A581 /* Pass */,
+				4885FC481D5C7E3800A1A581 /* Stop Area */,
 				48B79F951D2FF4FC00E6365A /* Info.plist */,
-				48B79F9E1D3021CD00E6365A /* StopsOverviewTableViewController.swift */,
-				48C365321D41080100827C88 /* StopAreaDetailViewController.swift */,
 				4872B0741D51157100845E3B /* AnnotatedLabel.swift */,
 				485DC9751D5679B8001E95CF /* UINavigationBarSubtitleLabel.swift */,
-				485DC9771D567B8D001E95CF /* JourneyOverviewTableViewController.swift */,
 				485DC97F1D56893E001E95CF /* PlanningView.swift */,
-				4880A28E1D58A97800D03F14 /* StopIndicator.swift */,
 			);
 			name = Source;
 			path = OvTijd;
@@ -196,7 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48B79F9F1D3021CD00E6365A /* StopsOverviewTableViewController.swift in Sources */,
+				48B79F9F1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift in Sources */,
 				485DC9801D56893E001E95CF /* PlanningView.swift in Sources */,
 				4880A28F1D58A97800D03F14 /* StopIndicator.swift in Sources */,
 				4872B0751D51157100845E3B /* AnnotatedLabel.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import OvTijdCore
 import CoreLocation
 
-class StopsOverviewTableViewController: UITableViewController, OVTLocationManagerDelegate {
+class StopAreaOverviewTableViewController: UITableViewController, OVTLocationManagerDelegate {
 
     private struct Constants {
         static let Nearby = "Nearby"
@@ -32,11 +32,6 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
 
     private func refreshStopAreas() {
         if let newLocation = location {
-            if let refresh = refreshControl {
-                tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refresh.frame.size.height), animated: true)
-                refresh.beginRefreshing()
-            }
-
             manager.stopAreas(newLocation) {
                 [weak self] (stopAreas: [StopArea]) in
                 if newLocation == self?.location { // Location might have changed already
@@ -46,6 +41,8 @@ class StopsOverviewTableViewController: UITableViewController, OVTLocationManage
                     }
                 }
             }
+        } else {
+            refreshControl?.endRefreshing()
         }
     }
 
