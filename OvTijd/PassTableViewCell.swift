@@ -18,7 +18,7 @@ class PassTableViewCell: UITableViewCell {
 
     var pass: Pass? {
         didSet {
-            type = pass?.transportType
+            type = pass?.lineDetails.transportType
             if let passData = pass {
                 lineId = passData.lineDetails.publicNumber ?? ""
                 direction = passData.lineDetails.destinationName ?? ""
@@ -52,15 +52,16 @@ class PassTableViewCell: UITableViewCell {
         planningView.planning = planning
     }
 
-    private var baseLineLabelAndDirectionLabelEqual: NSLayoutConstraint?
+    private var baseLineConstraints = [NSLayoutConstraint]()
 
     override func updateConstraints() {
-        if let constraint = baseLineLabelAndDirectionLabelEqual {
-            NSLayoutConstraint.deactivateConstraints([constraint])
-        }
+        NSLayoutConstraint.deactivateConstraints(baseLineConstraints)
 
-        baseLineLabelAndDirectionLabelEqual = NSLayoutConstraint(item: directionLabel, attribute: .FirstBaseline, relatedBy: .Equal, toItem: lineIdLabel.labelLabel, attribute: .FirstBaseline, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activateConstraints([baseLineLabelAndDirectionLabelEqual!])
+        baseLineConstraints.append(NSLayoutConstraint(item: directionLabel, attribute: .FirstBaseline, relatedBy: .Equal, toItem: lineIdLabel.labelLabel, attribute: .FirstBaseline, multiplier: 1, constant: 0))
+        baseLineConstraints.append(NSLayoutConstraint(item: directionLabel, attribute: .FirstBaseline, relatedBy: .Equal, toItem: planningView.currentDepartureTimeLabel, attribute: .FirstBaseline, multiplier: 1, constant: 0))
+
+        NSLayoutConstraint.activateConstraints(baseLineConstraints)
+
         super.updateConstraints()
     }
 

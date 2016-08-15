@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class UINavigationBarSubtitleLabel: UIView {
 
     let title = UILabel()
@@ -24,14 +25,36 @@ class UINavigationBarSubtitleLabel: UIView {
     }
 
     private func setup() {
+        addSubview(title)
+        addSubview(subtitle)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        subtitle.translatesAutoresizingMaskIntoConstraints = false
+
+        subtitle.allowsDefaultTighteningForTruncation = true
+        subtitle.minimumScaleFactor = 0.5
+
+        title.text = " "
+        subtitle.text = " "
+        subtitle.font = subtitle.font.fontWithSize(UIFont.smallSystemFontSize())
+        opaque = false
+
         var constraints = [NSLayoutConstraint]()
         constraints.append(NSLayoutConstraint(item: title, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1, constant: 0))
         constraints.append(NSLayoutConstraint(item: title, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0))
         constraints.append(NSLayoutConstraint(item: subtitle, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0))
-        constraints.append(NSLayoutConstraint(item: subtitle, attribute: .Top, relatedBy: .Equal, toItem: title, attribute: .Bottom, multiplier: 1, constant: 8))
+        constraints.append(NSLayoutConstraint(item: subtitle, attribute: .Top, relatedBy: .Equal, toItem: title, attribute: .Bottom, multiplier: 1, constant: 2))
 
-        title.text = "Title"
-        subtitle.text = "Subtitle"
+
+        NSLayoutConstraint.activateConstraints(constraints)
+        invalidateIntrinsicContentSize()
     }
 
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        let titleSize = title.sizeThatFits(CGSize(width: size.width, height: (size.height - 2) / 2))
+        let subtitleSize = subtitle.sizeThatFits(CGSize(width: size.width, height: (size.height - 2) / 2))
+
+        let newSize = CGSize(width: max(titleSize.width, subtitleSize.width), height: titleSize.height + subtitleSize.height + 2)
+
+        return newSize
+    }
 }

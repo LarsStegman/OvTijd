@@ -14,6 +14,7 @@ class JourneyPassCellTableViewCell: UITableViewCell {
     @IBOutlet weak var stopNameLabel: UILabel!
     @IBOutlet weak var planningView: PlanningView!
     @IBOutlet weak var stopIndicator: StopIndicator!
+    @IBOutlet weak var townLabel: UILabel!
 
     var pass: Pass? {
         didSet {
@@ -26,10 +27,22 @@ class JourneyPassCellTableViewCell: UITableViewCell {
         if let pass = pass {
             stopNameLabel.text = pass.timingPoint.timingPointName
             planningView.planning = pass.planning
-            stopIndicator.type = pass.journeyDetails.stopType
-            stopIndicator.passed = pass.status == .Arrived || pass.status == .Passed
+            townLabel.text = pass.timingPoint.timingPointTown
+            stopIndicator.type = pass.stopType
+            stopIndicator.passed = pass.status
         }
+    }
 
+    var baselineConstraints = [NSLayoutConstraint]()
+
+    override func updateConstraints() {
+        NSLayoutConstraint.deactivateConstraints(baselineConstraints)
+
+        baselineConstraints.append(NSLayoutConstraint(item: stopNameLabel, attribute: .FirstBaseline, relatedBy: .Equal, toItem: planningView.currentDepartureTimeLabel, attribute: .FirstBaseline, multiplier: 1, constant: 0))
+
+        NSLayoutConstraint.activateConstraints(baselineConstraints)
+
+        super.updateConstraints()
     }
 
 }

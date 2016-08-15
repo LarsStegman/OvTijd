@@ -23,7 +23,27 @@
 		48B79F9F1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B79F9E1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift */; };
 		48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C365321D41080100827C88 /* StopAreaDetailViewController.swift */; };
 		48C365351D410BE100827C88 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C365341D410BE100827C88 /* MapKit.framework */; };
+		48E9971B1D60D5E700BBD8CC /* OvTijdCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48E997191D60D5E700BBD8CC /* OvTijdCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		48E9971E1D60D60900BBD8CC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */; };
+		48E9971F1D60D60900BBD8CC /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		48E997211D60FD8E00BBD8CC /* ScreenFillingMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48E997201D60FD8E00BBD8CC /* ScreenFillingMessage.xib */; };
+		48E997231D61052F00BBD8CC /* ScreenFillingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E997221D61052F00BBD8CC /* ScreenFillingMessage.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		48E9971C1D60D5E700BBD8CC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				48E9971F1D60D60900BBD8CC /* SwiftyJSON.framework in Embed Frameworks */,
+				48E9971B1D60D5E700BBD8CC /* OvTijdCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4815A95E1D421D3400A542FC /* PassTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassTableViewCell.swift; sourceTree = "<group>"; };
@@ -44,6 +64,10 @@
 		48B79F9E1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaOverviewTableViewController.swift; sourceTree = "<group>"; };
 		48C365321D41080100827C88 /* StopAreaDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopAreaDetailViewController.swift; sourceTree = "<group>"; };
 		48C365341D410BE100827C88 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		48E997191D60D5E700BBD8CC /* OvTijdCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = OvTijdCore.framework; path = "/Users/larsstegman/Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphoneos/OvTijdCore.framework"; sourceTree = "<absolute>"; };
+		48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SwiftyJSON.framework; path = "/Users/larsstegman/Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<absolute>"; };
+		48E997201D60FD8E00BBD8CC /* ScreenFillingMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenFillingMessage.xib; sourceTree = "<group>"; };
+		48E997221D61052F00BBD8CC /* ScreenFillingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenFillingMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48E9971E1D60D60900BBD8CC /* SwiftyJSON.framework in Frameworks */,
 				48252B2D1D42A58A009D64B2 /* OvTijdCore.framework in Frameworks */,
 				48C365351D410BE100827C88 /* MapKit.framework in Frameworks */,
 			);
@@ -90,6 +115,8 @@
 		48B79F7D1D2FF4FC00E6365A = {
 			isa = PBXGroup;
 			children = (
+				48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */,
+				48E997191D60D5E700BBD8CC /* OvTijdCore.framework */,
 				48252B2C1D42A58A009D64B2 /* OvTijdCore.framework */,
 				48C365341D410BE100827C88 /* MapKit.framework */,
 				48B79F881D2FF4FC00E6365A /* Source */,
@@ -117,6 +144,8 @@
 				4872B0741D51157100845E3B /* AnnotatedLabel.swift */,
 				485DC9751D5679B8001E95CF /* UINavigationBarSubtitleLabel.swift */,
 				485DC97F1D56893E001E95CF /* PlanningView.swift */,
+				48E997201D60FD8E00BBD8CC /* ScreenFillingMessage.xib */,
+				48E997221D61052F00BBD8CC /* ScreenFillingMessage.swift */,
 			);
 			name = Source;
 			path = OvTijd;
@@ -153,6 +182,7 @@
 				48B79F831D2FF4FC00E6365A /* Frameworks */,
 				48B79F841D2FF4FC00E6365A /* Resources */,
 				48568B901D37FB1D005C97CC /* Headers */,
+				48E9971C1D60D5E700BBD8CC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -210,6 +240,7 @@
 				48B79F941D2FF4FC00E6365A /* LaunchScreen.storyboard in Resources */,
 				48B79F911D2FF4FC00E6365A /* Assets.xcassets in Resources */,
 				48B79F8F1D2FF4FC00E6365A /* Main.storyboard in Resources */,
+				48E997211D60FD8E00BBD8CC /* ScreenFillingMessage.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +258,7 @@
 				48C365331D41080100827C88 /* StopAreaDetailViewController.swift in Sources */,
 				485DC9761D5679B9001E95CF /* UINavigationBarSubtitleLabel.swift in Sources */,
 				4815A95F1D421D3400A542FC /* PassTableViewCell.swift in Sources */,
+				48E997231D61052F00BBD8CC /* ScreenFillingMessage.swift in Sources */,
 				485DC9781D567B8D001E95CF /* JourneyOverviewTableViewController.swift in Sources */,
 				48A8916C1D379E070010A609 /* StopAreaTableViewCell.swift in Sources */,
 				48B79F8A1D2FF4FC00E6365A /* AppDelegate.swift in Sources */,
@@ -344,6 +376,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)Core/build/Debug-iphoneos",
@@ -360,6 +393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)Core/build/Debug-iphoneos",

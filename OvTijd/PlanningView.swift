@@ -86,6 +86,9 @@ class PlanningView: UIView {
     }
 
     override func intrinsicContentSize() -> CGSize {
-        return stack.intrinsicContentSize()
+        let plannedSize = plannedDepartureTimeLabel.intrinsicContentSize()
+        let currentSize = currentDepartureTimeLabel.intrinsicContentSize()
+
+        return CGSize(width: max(plannedSize.width, currentSize.width), height: plannedSize.height + currentSize.height)
     }
 }

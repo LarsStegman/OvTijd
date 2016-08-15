@@ -17,7 +17,7 @@ class StopIndicator: UIView {
             setNeedsDisplay()
         }
     }
-    var passed = true {
+    var passed = TripStopStatus.Passed {
         didSet {
             cachedPath = nil
             setNeedsDisplay()
@@ -47,7 +47,7 @@ class StopIndicator: UIView {
         let context = UIGraphicsGetCurrentContext()
         CGContextSaveGState(context)
 
-        if passed {
+        if passed == .Passed {
             CGContextAddPath(context, indicatorPath)
             CGContextSetFillColorWithColor(context, lineColor.CGColor)
             CGContextFillPath(context)

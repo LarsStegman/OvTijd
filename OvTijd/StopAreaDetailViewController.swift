@@ -169,7 +169,9 @@ class StopAreaDetailViewController: UIViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if  let destinationVC = segue.destinationViewController as? JourneyOverviewTableViewController,
             let selectedCellIndex = tableView.indexPathForSelectedRow {
-            destinationVC.localpassTimeCode = passes[selectedCellIndex.row].code
+            let pass = passes[selectedCellIndex.row]
+            destinationVC.localpassTimeCode = pass.code
+            destinationVC.title = "\(pass.lineDetails.transportType) \(pass.lineDetails.publicNumber)"
         }
     }
 
