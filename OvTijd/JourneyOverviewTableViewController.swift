@@ -25,7 +25,7 @@ class JourneyOverviewTableViewController: UITableViewController {
 
     override var title: String? {
         didSet {
-            navigationTitleView.title.text = title
+            navigationTitleView.titleText = title
         }
     }
 
@@ -40,9 +40,7 @@ class JourneyOverviewTableViewController: UITableViewController {
     private var journey: Journey? {
         didSet {
             tableView.reloadData()
-            if let j = journey {
-                navigationTitleView?.subtitle.text = j.lineDetails.destinationName
-            }
+            navigationTitleView.subtitleText = journey?.lineDetails.destinationName
         }
     }
 
