@@ -24,6 +24,7 @@ class StopAreaDetailViewController: UIViewController,
     @IBOutlet weak var stopLocationView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
+    private var refreshTimer: NSTimer?
 
     var stopArea: StopArea?
     private var stops = [Stop]() {
@@ -70,20 +71,38 @@ class StopAreaDetailViewController: UIViewController,
         tableView.delegate = self
         tableView.dataSource = self
         stopLocationView.delegate = self
-        refreshControl.addTarget(self, action: #selector(StopAreaDetailViewController.refresh(_:)), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(StopAreaDetailViewController.refresh(_:)),
+                                 forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let line = CALayer()
+        line.frame = CGRect(x: stopLocationView.frame.origin.x,
+                            y: stopLocationView.frame.height - 1,
+                            width: stopLocationView.frame.width, height: 1)
+        line.backgroundColor = UIColor.lightGrayColor().CGColor
+        stopLocationView.layer.addSublayer(line)
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        refreshPassData()
+        validateTimer()
+        refreshTimer?.fire()
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        refreshTimer?.invalidate()
+        refreshTimer = nil
     }
 
     func refresh(sender: UIRefreshControl) {
-        refreshPassData()
+        refreshTimer?.fire()
     }
 
-    private func refreshPassData() {
+    func refreshPassData() {
         if let sa = stopArea {
             refreshControl.beginRefreshing()
             ovtManager.stops(sa, useIn: { [weak self] (stops) in
@@ -93,8 +112,13 @@ class StopAreaDetailViewController: UIViewController,
                 }
             })
         } else {
-            passes = [Pass]()
+            self.stops = [Stop]()
         }
+    }
+
+    private func validateTimer() {
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: #selector(refreshPassData),
+                                                              userInfo: nil, repeats: true)
     }
 
     private func updateVisiblePasses() {

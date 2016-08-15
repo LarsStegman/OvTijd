@@ -21,7 +21,7 @@ class AnnotatedLabel: UIView {
     
     @IBInspectable var separatorColor: UIColor = UIColor.blackColor()    { didSet { updateUI() } }
     @IBInspectable var separatorMargin: CGFloat = 2                 { didSet { updateUI() } }
-    @IBInspectable var separatorWidth: CGFloat = 0.05               { didSet { updateUI() } }
+    @IBInspectable var separatorWidth: CGFloat = 1                  { didSet { updateUI() } }
 
     let labelLabel = UILabel()
     let valueLabel = UILabel()
