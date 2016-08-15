@@ -11,7 +11,10 @@ import OvTijdCore
 import CoreLocation
 import MapKit
 
-class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate {
+class StopAreaDetailViewController: UIViewController,
+                                    UITableViewDelegate,
+                                    UITableViewDataSource,
+                                    MKMapViewDelegate {
 
     let ovtManager = OVTManager.sharedInstance
     private struct Storyboard {
@@ -54,7 +57,7 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
     var passes: [Pass] {
         set {
             storedPasses = newValue.sort({ $0.planning.expectedDepartureTime < $1.planning.expectedDepartureTime })
-            tableView.reloadData()
+            updateUI()
         }
         get {
             return storedPasses
@@ -106,9 +109,35 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
 
+    private var earliestNextPassIndexPath: NSIndexPath {
+        for i in 0..<passes.count {
+            if passes[i].status != .Passed {
+                return NSIndexPath(forRow: i, inSection: 0)
+            }
+        }
+
+        return NSIndexPath(forRow: 0, inSection: 0)
+    }
+
+    private lazy var noDeparturesMessage: ScreenFillingMessage = {
+        let view = NSBundle.mainBundle().loadNibNamed("ScreenFillingMessage", owner: self, options: nil).first! as! ScreenFillingMessage
+        view.messageLabel.text = "Op dit moment vertrekken er geen ritten vanaf deze locatie"
+        return view
+    }()
+
     private func updateUI() {
-        tableView.beginUpdates()
-        tableView.endUpdates()
+        dispatch_async(dispatch_get_main_queue()) {
+            self.tableView.reloadData()
+            if self.passes.count > 0 {
+                self.noDeparturesMessage.removeFromSuperview()
+                self.tableView.scrollEnabled = true
+                self.tableView.scrollToRowAtIndexPath(self.earliestNextPassIndexPath, atScrollPosition: .Top,
+                                                      animated: true)
+            } else {
+                self.tableView.backgroundView = self.noDeparturesMessage
+                self.tableView.scrollEnabled = false
+            }
+        }
     }
 
     // - MARK: UIView
@@ -165,12 +194,16 @@ class StopAreaDetailViewController: UIViewController, UITableViewDelegate, UITab
     }
 }
 
-func <(lhs: NSDate, rhs: NSDate) -> Bool {
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
 }
 
-func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
     return lhs.isEqualToDate(rhs)
+}
+
+extension NSDate: Comparable {
+
 }
 
 extension Stop: MKAnnotation {
