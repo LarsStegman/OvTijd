@@ -23,6 +23,8 @@ class StopAreaDetailViewController: UIViewController,
 
     @IBOutlet weak var stopLocationView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var messages: ScrollingMessages!
+
     var refreshControl = UIRefreshControl()
     private var refreshTimer: NSTimer?
 
@@ -74,6 +76,7 @@ class StopAreaDetailViewController: UIViewController,
         refreshControl.addTarget(self, action: #selector(StopAreaDetailViewController.refresh(_:)),
                                  forControlEvents: .ValueChanged)
         tableView.addSubview(refreshControl)
+        tableView.tableFooterView = UIView()
     }
 
     override func viewDidLayoutSubviews() {
@@ -92,10 +95,16 @@ class StopAreaDetailViewController: UIViewController,
         refreshTimer?.fire()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        messages.startAnimating()
+    }
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         refreshTimer?.invalidate()
         refreshTimer = nil
+        messages.stopAnimating()
     }
 
     func refresh(sender: UIRefreshControl) {
@@ -105,10 +114,12 @@ class StopAreaDetailViewController: UIViewController,
     func refreshPassData() {
         if let sa = stopArea {
             refreshControl.beginRefreshing()
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             ovtManager.stops(sa, useIn: { [weak self] (stops) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self?.stops = stops
                     self?.refreshControl.endRefreshing()
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             })
         } else {
@@ -117,7 +128,8 @@ class StopAreaDetailViewController: UIViewController,
     }
 
     private func validateTimer() {
-        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(30, target: self, selector: #selector(refreshPassData),
+        refreshTimer = NSTimer.scheduledTimerWithTimeInterval(30, target: self,
+                                                              selector: #selector(StopAreaDetailViewController.refreshPassData),
                                                               userInfo: nil, repeats: true)
     }
 

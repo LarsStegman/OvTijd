@@ -25,7 +25,7 @@ class StopIndicator: UIView {
     }
 
     @IBInspectable var lineWidth: CGFloat = 2
-    @IBInspectable var lineColor: UIColor = UIColor.yellowColor()
+    @IBInspectable var lineColor: UIColor = UIColor.blueColor()
     @IBInspectable var circleRadius: CGFloat = 10
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,6 +40,7 @@ class StopIndicator: UIView {
 
     private func setup() {
         opaque = false
+        lineColor = superview?.tintColor ?? UIColor.blueColor()
     }
 
     override func drawRect(rect: CGRect) {

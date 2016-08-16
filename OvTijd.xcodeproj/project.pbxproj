@@ -28,6 +28,7 @@
 		48E9971F1D60D60900BBD8CC /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		48E997211D60FD8E00BBD8CC /* ScreenFillingMessage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48E997201D60FD8E00BBD8CC /* ScreenFillingMessage.xib */; };
 		48E997231D61052F00BBD8CC /* ScreenFillingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E997221D61052F00BBD8CC /* ScreenFillingMessage.swift */; };
+		48F8B99F1D632865004EF6FF /* ScrollingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F8B99E1D632865004EF6FF /* ScrollingMessages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,7 @@
 		48E9971D1D60D60900BBD8CC /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = SwiftyJSON.framework; path = "/Users/larsstegman/Library/Developer/Xcode/DerivedData/OvTijdWorkspace-bsjylqmhdwtsyjfrdstfbpqdmthq/Build/Products/Debug-iphoneos/SwiftyJSON.framework"; sourceTree = "<absolute>"; };
 		48E997201D60FD8E00BBD8CC /* ScreenFillingMessage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenFillingMessage.xib; sourceTree = "<group>"; };
 		48E997221D61052F00BBD8CC /* ScreenFillingMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenFillingMessage.swift; sourceTree = "<group>"; };
+		48F8B99E1D632865004EF6FF /* ScrollingMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingMessages.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				4815A95E1D421D3400A542FC /* PassTableViewCell.swift */,
 				48C365321D41080100827C88 /* StopAreaDetailViewController.swift */,
+				48F8B99E1D632865004EF6FF /* ScrollingMessages.swift */,
 			);
 			name = Pass;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48F8B99F1D632865004EF6FF /* ScrollingMessages.swift in Sources */,
 				48B79F9F1D3021CD00E6365A /* StopAreaOverviewTableViewController.swift in Sources */,
 				485DC9801D56893E001E95CF /* PlanningView.swift in Sources */,
 				4880A28F1D58A97800D03F14 /* StopIndicator.swift in Sources */,

@@ -14,8 +14,9 @@ class StopAreaOverviewTableViewController: UITableViewController, OVTLocationMan
 
     private struct Constants {
         static let Nearby = "Nearby"
+        static let Favorites = "Favorites"
         static let StopAreaCellId = "StopAreaCell"
-        static let SectionTitles = [Constants.Nearby]
+        static let SectionTitles = [Constants.Favorites, Constants.Nearby]
         static let distanceFilter = 100.0
     }
 
@@ -32,12 +33,15 @@ class StopAreaOverviewTableViewController: UITableViewController, OVTLocationMan
 
     private func refreshStopAreas() {
         if let newLocation = location {
+            refreshControl?.beginRefreshing()
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             manager.stopAreas(newLocation) {
                 [weak self] (stopAreas: [StopArea]) in
                 if newLocation == self?.location { // Location might have changed already
                     dispatch_async(dispatch_get_main_queue()) {
                         self?.stopAreas[Constants.Nearby] = stopAreas
                         self?.refreshControl?.endRefreshing()
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     }
                 }
             }

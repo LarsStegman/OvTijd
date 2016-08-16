@@ -53,10 +53,12 @@ class JourneyOverviewTableViewController: UITableViewController {
     private func refreshJourneyData() {
         if let code = localpassTimeCode {
             refreshControl?.beginRefreshing()
+            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             manager.journey([code]) { [weak self] (journeys) in
                 dispatch_async(dispatch_get_main_queue()) {
                     self?.journey = journeys.first
                     self?.refreshControl?.endRefreshing()
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 }
             }
         }
