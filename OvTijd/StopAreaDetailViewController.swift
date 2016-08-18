@@ -73,8 +73,7 @@ class StopAreaDetailViewController: UIViewController,
         set {
             if newValue != storedMessages {
                 messagesViewContainer?.hidden = !(newValue.count > 0)
-                let uniqueMessages = Array(Set<String>(newValue.map({ $0.content })))
-                messagesView.messages = uniqueMessages
+                messagesView.messages = Array(Set<String>(newValue.map({ $0.content }))) 
                 storedMessages = newValue
             }
         }

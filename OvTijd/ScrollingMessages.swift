@@ -164,7 +164,6 @@ class ScrollingMessages: UIView {
             interval = 0.5
         default: return
         }
-        print("New animation with selector \(selector)")
         scrollAnimationTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self,
                                                                       selector: selector,
                                                                       userInfo: nil, repeats: false)
