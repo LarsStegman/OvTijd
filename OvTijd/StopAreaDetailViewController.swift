@@ -23,7 +23,8 @@ class StopAreaDetailViewController: UIViewController,
 
     @IBOutlet weak var stopLocationView: MKMapView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var messages: ScrollingMessages!
+    @IBOutlet weak var messagesView: ScrollingMessages!
+    @IBOutlet weak var messagesViewContainer: UIView!
 
     var refreshControl = UIRefreshControl()
     private var refreshTimer: NSTimer?
@@ -33,9 +34,10 @@ class StopAreaDetailViewController: UIViewController,
         didSet {
             let oldAnnotations = stopLocationView.annotations
             stopLocationView.addAnnotations(stops)
-            stopLocationView.showAnnotations(stops, animated: false)
+            stopLocationView.showAnnotations(stops, animated: true)
             stopLocationView.removeAnnotations(oldAnnotations)
             passes = stops.flatMap({ $0.passes })
+            messages = stops.flatMap({ $0.messages }).filter({ $0.shouldBeDisplayed })
         }
     }
     private var selectedStop: Stop? {
@@ -66,6 +68,21 @@ class StopAreaDetailViewController: UIViewController,
             return storedPasses
         }
     }
+    private var storedMessages = [Message]()
+    var messages: [Message] {
+        set {
+            if newValue != storedMessages {
+                messagesViewContainer?.hidden = !(newValue.count > 0)
+                let uniqueMessages = Array(Set<String>(newValue.map({ $0.content })))
+                messagesView.messages = uniqueMessages
+                storedMessages = newValue
+            }
+        }
+        get {
+            return storedMessages
+        }
+    }
+
     var hiddenPassIndeces = [Int]() { didSet { updateUI() } }
 
     override func viewDidLoad() {
@@ -82,9 +99,9 @@ class StopAreaDetailViewController: UIViewController,
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let line = CALayer()
-        line.frame = CGRect(x: stopLocationView.frame.origin.x,
-                            y: stopLocationView.frame.height - 1,
-                            width: stopLocationView.frame.width, height: 1)
+        line.frame = CGRect(x: stopLocationView.bounds.origin.x,
+                            y: stopLocationView.bounds.height - 1,
+                            width: stopLocationView.bounds.width, height: 1)
         line.backgroundColor = UIColor.lightGrayColor().CGColor
         stopLocationView.layer.addSublayer(line)
     }
@@ -97,14 +114,14 @@ class StopAreaDetailViewController: UIViewController,
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        messages.startAnimating()
+        messagesView.startAnimating()
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         refreshTimer?.invalidate()
         refreshTimer = nil
-        messages.stopAnimating()
+        messagesView.stopAnimating()
     }
 
     func refresh(sender: UIRefreshControl) {
@@ -232,17 +249,6 @@ class StopAreaDetailViewController: UIViewController,
     }
 }
 
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == NSComparisonResult.OrderedAscending
-}
-
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.isEqualToDate(rhs)
-}
-
-extension NSDate: Comparable {
-
-}
 
 extension Stop: MKAnnotation {
     public var coordinate: CLLocationCoordinate2D {

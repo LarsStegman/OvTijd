@@ -11,20 +11,31 @@ import UIKit
 @IBDesignable
 class ScrollingMessages: UIView {
 
-    var label = UILabel()
-    private var leftLabelConstraint: NSLayoutConstraint! {
-        didSet {
-            initialLeftConstant = leftLabelConstraint.constant
+    private var label: UILabel? {
+        if activeLabelIndex < labels.count && activeLabelIndex >= 0 {
+            return labels[activeLabelIndex]
         }
+        return nil
     }
-    private var initialLeftConstant: CGFloat!
-    private var scrollingTimer: NSTimer?
 
-    var message: String? {
+    var activeLabelIndex = 0
+    private var labels = [UILabel]()
+
+    override var description: String {
+        return super.description + "\n" + labels.map({ "\($0.description)\n" }).description
+    }
+
+    /**
+     The message you want to display.
+     
+     - Important: If you change the message, the layout will be reset and animations stopped. Call `startAnimating` 
+     again, to restart the animations.
+     */
+    var messages = [String]() {
         didSet {
-            label.text = message ?? " "
-            label.sizeToFit()
-            stopAnimating()
+            activeLabelIndex = 0
+            updateLabels()
+            resetLayout()
         }
     }
 
@@ -40,73 +51,224 @@ class ScrollingMessages: UIView {
 
     private func setup() {
         opaque = false
+        clipsToBounds = true
         backgroundColor = UIColor.clearColor()
-        label.text = " "
-        message = "No messages"
-        label.textColor = UIColor.whiteColor()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        var labelYConstraints = [NSLayoutConstraint]()
-        labelYConstraints.append(NSLayoutConstraint(item: label, attribute: .Top, relatedBy: .Equal, toItem: self,
-            attribute: .TopMargin, multiplier: 1, constant: 0))
-        labelYConstraints.append(NSLayoutConstraint(item: label, attribute: .Bottom, relatedBy: .Equal, toItem: self,
-            attribute: .BottomMargin, multiplier: 1, constant: 0))
-        leftLabelConstraint = NSLayoutConstraint(item: label, attribute: .Left, relatedBy: .Equal, toItem: self,
-                                                 attribute: .LeftMargin, multiplier: 1, constant: 0)
-        labelYConstraints.append(leftLabelConstraint)
-        addSubview(label)
-        NSLayoutConstraint.activateConstraints(labelYConstraints)
+        messages = ["No messages"]
     }
 
-    func startAnimating() {
-        if !hidden
-            && !animating
-            && leftLabelConstraint != nil
-            && initialLeftConstant != nil
-            && label.frame.width > labelViewingSize.width {
-            scrollText()
+    private func updateLabels() {
+        labels.forEach({ $0.removeFromSuperview() })
+        labels.removeAll()
+        for i in 0..<messages.count {
+            let label = UILabel()
+            label.text = "\(i+1)/\(messages.count): \(messages[i])"
+            label.textColor = UIColor.whiteColor()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(label)
+            labels.append(label)
+        }
+        setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        var previousFrame = CGRectZero
+        for (index, label) in labels.enumerate() {
+            label.sizeToFit()
+            let y = previousFrame.origin.y + previousFrame.height + layoutMargins.top + CGFloat(index) * layoutMargins.bottom
+
+            let frame = CGPoint(x: layoutMargins.left,
+                                y: y)
+            label.frame.origin = frame
+            previousFrame = label.frame
         }
     }
 
-    func stopAnimating() {
-        leftLabelConstraint?.constant = initialLeftConstant
-        layoutIfNeeded()
-        animating = false
+    /**
+     Starts the scrolling text animation.
+     
+     - Note: If the text of the label does not go out of bounds, the label will not be scrolled.
+     */
+    func startAnimating() {
+        if label != nil && label!.frame.width > bounds.width - layoutMargins.left - layoutMargins.right {
+            scrollHorizontally()
+        }
     }
 
-    var labelViewingSize: CGSize {
-        return CGSize(width: bounds.width - layoutMargins.left - layoutMargins.right, height: label.frame.height)
+    /**
+     Stops the animations and reset the label to the original position.
+     */
+    func stopAnimating() {
+        resetLayout()
+    }
+
+    override func intrinsicContentSize() -> CGSize {
+        if let label = label {
+            return CGSize(width: label.frame.width,
+                          height: label.frame.height + layoutMargins.top + layoutMargins.bottom)
+        }
+        return CGSizeZero
+    }
+
+    // MARK: Animation handling
+
+    private struct AnimationIdentifiers {
+        static let name = "name"
+        static let scrollHorizontally = "scrollHorizontally"
+        static let scrollToLeft = "scrollHorizontallyLeft"
+        static let scrollToRight = "scrollHorizontallyRight"
+        static let scrollVertically = "scrollVertically"
+        static let labelIndex = "labelIndex"
+    }
+
+    private var scrollAnimationTimer: NSTimer?
+
+    /**
+     Resets the layout and removes animations.
+     */
+    private func resetLayout() {
+        if let l = label {
+            l.layer.removeAllAnimations()
+            scrolledToRightOfLabel = false
+            scrollAnimationTimer?.invalidate()
+
+            l.sizeToFit()
+            let labelLayer = l.layer
+            labelLayer.position.x = layoutMargins.left + labelLayer.anchorPoint.x * labelLayer.bounds.width
+        }
+
+        layoutIfNeeded()
+    }
+
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        guard let name = anim.valueForKey(AnimationIdentifiers.name) as? String else {
+            return
+        }
+        guard flag else {
+            return
+        }
+        let index = anim.valueForKey(AnimationIdentifiers.labelIndex) as? Int
+        var interval = 3.0
+        var selector = #selector(ScrollingMessages.scrollHorizontally)
+
+        switch name {
+        case AnimationIdentifiers.scrollToRight:
+            scrolledToRightOfLabel = true
+            interval = 3
+        case AnimationIdentifiers.scrollToLeft:
+            scrolledToRightOfLabel = false
+            interval = 1
+            selector = #selector(ScrollingMessages.scrollToNextMessage)
+        case AnimationIdentifiers.scrollVertically where index == activeLabelIndex:
+            scrolledToRightOfLabel = false
+            interval = 0.5
+        default: return
+        }
+        print("New animation with selector \(selector)")
+        scrollAnimationTimer = NSTimer.scheduledTimerWithTimeInterval(interval, target: self,
+                                                                      selector: selector,
+                                                                      userInfo: nil, repeats: false)
     }
 
     /**
      The scrolling speed in points/s
      */
-    var scrollSpeed = 60.0
-    private var scrolledLeft = false
-    private var animating = false
+    @IBInspectable var scrollSpeed = 60.0
+    private var scrolledToRightOfLabel = false
 
-    func scrollText() {
-        self.animating = true
-        var newConstraintConstant: CGFloat
-        var duration: Double
-        if scrolledLeft {
-            newConstraintConstant = initialLeftConstant
-            duration = 1
-        } else {
-            let unshownLabelWidth = label.frame.width - labelViewingSize.width
-            newConstraintConstant = initialLeftConstant - unshownLabelWidth
-            duration = Double(unshownLabelWidth) / scrollSpeed
+    /**
+     Scrolls the text across the screen.
+     
+     - Warning: Never call this method yourself, use `startAnimating` instead. Certain preconditions might not be 
+     setup if you call this method yourself, leading to unexpected behaviour.
+     - SeeAlso: `ScrollingMessages.startAnimating`
+     */
+    func scrollHorizontally() {
+        guard let label = label else {
+            return
+        }
+        let labelLayer = label.layer
+        let from = labelLayer.position.x
+        let to: CGFloat
+        let duration: Double
+        let timingFunction: CAMediaTimingFunction
+        let id: String
+        if scrolledToRightOfLabel { // Scroll to left
+            to = layoutMargins.left + labelLayer.bounds.width * labelLayer.anchorPoint.x
+            duration = 0.5
+            timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            id = AnimationIdentifiers.scrollToLeft
+        } else { // Scroll to left
+            to = frame.width - layoutMargins.right - labelLayer.bounds.width * labelLayer.anchorPoint.x
+            duration = Double(labelLayer.bounds.width) / scrollSpeed
+            timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            id = AnimationIdentifiers.scrollToRight
         }
 
-        UIView.animateWithDuration(duration, animations: { [weak self] in
-                self?.leftLabelConstraint.constant = newConstraintConstant
-                self?.layoutIfNeeded()
-            }, completion: { finished in
-                let delay = self.scrolledLeft ? 1.0 : 3.0
-                self.scrolledLeft = !self.scrolledLeft
-                self.animating = false
-                self.scrollingTimer = NSTimer.scheduledTimerWithTimeInterval(delay, target: self,
-                    selector: #selector(ScrollingMessages.startAnimating), userInfo: nil, repeats: false)
-            })
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = from
+        animation.toValue = to
+        animation.duration = duration
+        animation.timingFunction = timingFunction
+        animation.delegate = self
+        animation.setValue(id, forKey: AnimationIdentifiers.name)
+
+        labelLayer.position.x = to
+        labelLayer.addAnimation(animation, forKey: id)
     }
+
+    func scrollToNextMessage() {
+        let newIndex = (activeLabelIndex + 1) % messages.count
+        for (index, label) in labels.enumerate() {
+            let anim = verticalAnimation(forLabelAt: index, activeIndexAfterAnimation: newIndex)
+            label.layer.position.y = anim.toValue as! CGFloat
+            label.layer.addAnimation(anim, forKey: AnimationIdentifiers.scrollVertically)
+        }
+        activeLabelIndex = newIndex
+    }
+
+    private func verticalAnimation(forLabelAt index: Int, activeIndexAfterAnimation: Int) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "position.y")
+
+        let labelLayer = labels[index].layer
+        let activeLabel = labels[activeIndexAfterAnimation]
+
+        let to: CGFloat
+        if index == activeIndexAfterAnimation {
+            to = layoutMargins.top + activeLabel.layer.anchorPoint.y * activeLabel.frame.height
+        } else if index < activeIndexAfterAnimation {
+            var deltaY: CGFloat = 0
+            for i in index+1..<activeIndexAfterAnimation {
+                deltaY += layoutMargins.top + layoutMargins.bottom + labels[i].frame.height
+            }
+            deltaY += layoutMargins.bottom + (1-labelLayer.anchorPoint.y) * labels[index].frame.height
+            to = -deltaY
+        } else { // index > activeIndexAfterAnimation
+            var deltaY: CGFloat = 0
+            for i in activeIndexAfterAnimation..<index {
+                deltaY += labels[i].layer.bounds.height + layoutMargins.top + layoutMargins.bottom
+            }
+            deltaY += layoutMargins.top + labelLayer.anchorPoint.y * labelLayer.bounds.height
+            to = deltaY
+        }
+
+        animation.fromValue = labelLayer.position.y
+        animation.toValue   = to
+        animation.duration  = 0.5
+        animation.delegate  = self
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+
+        animation.setValue(index, forKey: AnimationIdentifiers.labelIndex)
+        animation.setValue(AnimationIdentifiers.scrollVertically, forKey: AnimationIdentifiers.name)
+
+        return animation
+    }
+
 }
+
+
+
+
+
+
+

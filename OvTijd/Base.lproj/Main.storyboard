@@ -103,7 +103,7 @@
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="230" id="X93-OU-Ohi"/>
                                 </constraints>
                             </mapView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-HU-2Fv">
+                            <visualEffectView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Hw-HU-2Fv">
                                 <rect key="frame" x="0.0" y="64" width="600" height="42"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="V8Y-86-2dM">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="42"/>
@@ -122,7 +122,7 @@
                                     </constraints>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="swD-Ni-a84"/>
+                                    <constraint firstAttribute="height" constant="42" placeholder="YES" id="swD-Ni-a84"/>
                                 </constraints>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -217,7 +217,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="StopAreaName" id="bIJ-RS-dZs"/>
                     <connections>
-                        <outlet property="messages" destination="YMQ-qj-L1E" id="zCA-Dz-WZH"/>
+                        <outlet property="messagesView" destination="YMQ-qj-L1E" id="QOk-UH-ZKj"/>
+                        <outlet property="messagesViewContainer" destination="4Hw-HU-2Fv" id="6Vj-ko-Ujd"/>
                         <outlet property="stopLocationView" destination="Uco-LH-lto" id="CfI-fb-cTU"/>
                         <outlet property="tableView" destination="M4M-sq-z2q" id="DcL-Pz-Dm1"/>
                     </connections>
