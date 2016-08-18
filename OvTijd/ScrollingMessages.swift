@@ -61,7 +61,7 @@ class ScrollingMessages: UIView {
         labels.removeAll()
         for i in 0..<messages.count {
             let label = UILabel()
-            label.text = "\(i+1)/\(messages.count): \(messages[i])"
+            label.text = (messages.count > 1 ? "\(i+1)/\(messages.count): " : "").stringByAppendingString(messages[i])
             label.textColor = UIColor.whiteColor()
             label.translatesAutoresizingMaskIntoConstraints = false
             addSubview(label)
@@ -231,12 +231,9 @@ class ScrollingMessages: UIView {
         let animation = CABasicAnimation(keyPath: "position.y")
 
         let labelLayer = labels[index].layer
-        let activeLabel = labels[activeIndexAfterAnimation]
 
         let to: CGFloat
-        if index == activeIndexAfterAnimation {
-            to = layoutMargins.top + activeLabel.layer.anchorPoint.y * activeLabel.frame.height
-        } else if index < activeIndexAfterAnimation {
+        if index < activeIndexAfterAnimation {
             var deltaY: CGFloat = 0
             for i in index+1..<activeIndexAfterAnimation {
                 deltaY += layoutMargins.top + layoutMargins.bottom + labels[i].frame.height
